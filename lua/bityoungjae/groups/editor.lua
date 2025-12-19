@@ -9,12 +9,12 @@ function M.setup(hl, p)
   hl(0, "FloatBorder", { fg = p.border, bg = p.bg_dark })
   hl(0, "FloatTitle", { fg = p.accent1, bg = p.bg_dark, bold = true })
 
-  -- 커서
-  hl(0, "Cursor", { fg = p.bg, bg = p.fg })
-  hl(0, "CursorIM", { fg = p.bg, bg = p.fg })
+  -- 커서 (Cyber Pink)
+  hl(0, "Cursor", { fg = p.bg, bg = p.accent1 })
+  hl(0, "CursorIM", { fg = p.bg, bg = p.accent1 })
   hl(0, "CursorLine", { bg = p.cursor_line })
   hl(0, "CursorColumn", { bg = p.cursor_line })
-  hl(0, "TermCursor", { fg = p.bg, bg = p.fg })
+  hl(0, "TermCursor", { fg = p.bg, bg = p.accent1 })
   hl(0, "TermCursorNC", { fg = p.bg, bg = p.fg_dark })
 
   -- 줄 번호

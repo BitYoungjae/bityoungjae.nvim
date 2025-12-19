@@ -1,100 +1,106 @@
-# Mumyeong.nvim - Color Reference
+# Mumyeong.nvim - Color Reference v3.0
 
-## "Neutral Void & Luminous Highlights"
+## "Deep Void & Bioluminescent Neon"
 
-**Mumyeong (무명)** 테마는 '무채색의 공허(Void)' 속에 떠오르는 '빛(Light)'을 형상화했습니다.
-이 Neovim 포트(Port)는 **v2.0** 스펙을 따르며, 장시간 코딩 시 눈의 피로를 최소화하면서도 중요한 정보가 명확히 인지되도록 설계되었습니다.
+**Mumyeong (무명)** 리파인드(Refined) 버전은 기존의 흐릿한 파스텔 톤을 버리고, 칠흑 같은 심해 속에서 스스로 빛을 내는 생명체들처럼 **"선명한 형광(Neon)과 깊은 어둠"**의 대비를 강조했습니다.
 
-특히 **Clojure, TypeScript, Markdown, JSON** 편집 환경에서 구조적인 가독성을 극대화하는 데 초점을 맞추었습니다.
-
----
-
-## 1. Base Palette: Carbon & Mist
-
-배경은 깊이감 있는 어두운 톤을 사용하여 몰입감을 주며, 텍스트는 차가운 회색조와 순백색을 사용하여 눈부심을 방지하고 명료함을 유지합니다.
-
-| Variable     | Color        | Hex       | Role                                                                 |
-| :----------- | :----------- | :-------- | :------------------------------------------------------------------- |
-| **bg**       | **Void**     | `#09090B` | 에디터의 메인 배경. 순수한 검정보다 깊이감 있는 Carbon Black.        |
-| **bg_dark**  | **Onyx**     | `#18181B` | 사이드바(NvimTree), 플로팅 윈도우 배경.                              |
-| **bg_light** | **Charcoal** | `#27272A` | 선택 영역(Visual), 활성 상태의 배경.                                 |
-| **border**   | **Zinc**     | `#71717A` | **Glass Edge**. 창의 경계가 배경에 묻히지 않고 유리의 단면처럼 빛남. |
-| **fg**       | **Platinum** | `#E4E4E7` | 기본 텍스트. 완전한 흰색보다 눈이 편안한 밝은 회색.                  |
-| **fg_dark**  | **Mist**     | `#A1A1AA` | 주석, 덜 중요한 메타데이터, 구두점(괄호).                            |
-| **fg_light** | **Snow**     | `#FFFFFF` | **강조**. 커서, 활성 선택 텍스트 등 시선을 끌어야 하는 곳.           |
+시인성이 낮은 회색조 대신 **명도와 채도가 조절된 포인트 컬러**를 사용하여, 코드를 읽는 순간 뇌가 구조를 즉각적으로 파악할 수 있도록 설계되었습니다.
 
 ---
 
-## 2. Syntax Highlights: Muted Semantic
+## 1. Base Palette: The Abyss
 
-코드의 문법적 요소는 **"채도를 낮춘 파스텔 톤(Muted)"**을 사용하여, 어두운 배경 위에서 튀지 않고 자연스럽게 스며들도록 배치했습니다.
+배경은 더 차갑고 깊은 **True Black**에 가까운 톤으로 변경하여 OLED 및 고해상도 디스플레이에서 압도적인 몰입감을 제공합니다. 텍스트는 누런 끼를 뺀 **차가운 백색**을 사용하여 청량감을 줍니다.
+
+| Variable     | Color Name      | Hex       | Role                                                        |
+| :----------- | :-------------- | :-------- | :---------------------------------------------------------- |
+| **bg**       | **Abyss Black** | `#050505` | 빛을 완전히 흡수하는 듯한 극한의 검정. (기존보다 더 어두움) |
+| **bg_dark**  | **Deep Space**  | `#0F111A` | NvimTree, 팝업 창. 미세한 남색 틴트를 섞어 본문과 구분.     |
+| **bg_light** | **Night Shade** | `#1E2030` | 선택 영역(Visual), 커서 라인.                               |
+| **border**   | **Ice Glass**   | `#3B4261` | 창의 경계. 유리가 얼어붙은 듯한 차가운 질감.                |
+| **fg**       | **Frost White** | `#ECEFF4` | 기본 텍스트. 탁한 회색을 버리고 선명한 Ice White 적용.      |
+| **fg_dark**  | **Steel Gray**  | `#636E7B` | 주석, 무시해도 되는 메타데이터.                             |
+| **fg_light** | **Starlight**   | `#FFFFFF` | **강조**. 커서 및 하이라이트.                               |
+
+---
+
+## 2. Syntax Highlights: Crisp & Vibrant
+
+기존의 힘 빠진 파스텔 톤 대신, 어둠 속에서도 뚜렷하게 식별되는 **고채도 컬러**를 배치했습니다. 각 색상은 서로 보색 대비를 이루거나 명도 차이를 두어 겹쳐 보이지 않습니다.
 
 ### Code Elements
 
-| Syntax Group | Color Name       | Hex       | Usage Example                                   |
-| :----------- | :--------------- | :-------- | :---------------------------------------------- |
-| **Keyword**  | **Thistle**      | `#C4A6CF` | `if`, `else`, `return`, `function`, `import`    |
-| **Function** | **Slate Blue**   | `#94A3B8` | 함수 선언 및 호출, 메서드.                      |
-| **String**   | **Pale Emerald** | `#81C784` | 문자열 리터럴. 자연스러운 녹색으로 안정감 제공. |
-| **Type**     | **Brass**        | `#D4C88C` | 클래스명, 타입 정의(`interface`, `type`).       |
-| **Number**   | **Sand**         | `#D9A67E` | 숫자, 불리언(`true`/`false`).                   |
-| **Constant** | **Sand**         | `#D9A67E` | `const`, 열거형 값.                             |
-| **Comment**  | **Mist Gray**    | `#A1A1AA` | 주석. 배경과 대비되지만 코드를 방해하지 않음.   |
-| **Special**  | **Sand**         | `#D9A67E` | 이스케이프 문자 (`\n`, `\t`).                   |
+| Syntax Group | Color Name        | Hex       | Usage Example                                                   |
+| :----------- | :---------------- | :-------- | :-------------------------------------------------------------- |
+| **Keyword**  | **Neon Violet**   | `#C792EA` | `if`, `return`, `import`. 강력한 제어 흐름을 상징하는 자수정색. |
+| **Function** | **Electric Blue** | `#61AFEF` | 함수 및 메서드. 차갑고 이성적인 논리 실행을 상징.               |
+| **String**   | **Aurora Green**  | `#7CEC9F` | 문자열. 기존의 칙칙한 녹색 대신 산뜻한 민트 그린 적용.          |
+| **Type**     | **Solar Gold**    | `#FFCB6B` | 클래스, 인터페이스. 구조를 지탱하는 단단한 황금색.              |
+| **Number**   | **Tangerine**     | `#F78C6C` | 숫자, 불리언. 텍스트 흐름 속에서 즉각적으로 튀어 오르는 주황.   |
+| **Constant** | **Cyber Pink**    | `#FF5370` | `const`, 매크로. 절대 변하지 않는 값에 대한 경고성 강조.        |
+| **Comment**  | **Slate Smoke**   | `#636E7B` | 주석. 푸른 기가 도는 회색으로 세련미를 더하고 가독성 확보.      |
+| **Special**  | **Cyan Ray**      | `#89DDFF` | 이스케이프 문자, 데코레이터, 어노테이션.                        |
 
 ---
 
 ## 3. Language Optimizations
 
-각 언어의 특성에 맞춰 색상 배치를 최적화했습니다.
+언어별 특성에 맞춰 "구조적 아름다움"이 느껴지도록 색상을 미세 조정했습니다.
 
-### λ Clojure (Lisp 계열)
+### λ Clojure (Lisp)
 
-- **Punctuation (`#A1A1AA`)**: 수많은 괄호 `( )`가 코드의 내용을 가리지 않도록, `Mist Gray`를 적용하여 시각적 노이즈를 줄였습니다.
-- **Keyword (`#C4A6CF`)**: 함수형 프로그래밍의 핵심인 키워드와 매크로를 보라색(Thistle)으로 강조하여 흐름 파악을 돕습니다.
-- **String (`#81C784`)**: 데이터로서의 문자열을 명확히 분리합니다.
+- **Parentheses (`#444B5E`)**: 괄호를 배경보다 조금만 더 밝은 `Deep Blue Gray`로 처리하여, 괄호 지옥(Parenthesis Hell)을 시각적으로 소거했습니다. 내용물만 둥둥 떠 있는 듯한 느낌을 줍니다.
+- **Keyword (`#C792EA`)**: 보라색을 사용하여 함수형 흐름의 핵심이 눈에 박히도록 했습니다.
+- **Symbol (`#ECEFF4`)**: 일반 심볼은 깨끗한 흰색으로 처리하여 가독성을 높였습니다.
 
 ### 📘 TypeScript / JavaScript
 
-- **Type Distinction**: 타입(`Type`, `#D4C88C`)과 함수(`Function`, `#94A3B8`)의 색상 온도를 다르게(Warm vs Cool) 배정하여, 복잡한 타입 정의 코드에서도 구조를 쉽게 파악할 수 있습니다.
-- **Object Properties**: 객체의 키 값은 `Slate Blue(#94A3B8)`를 사용하여 변수와 구분됩니다.
+- **Type vs Interface**: 타입 정의는 **Solar Gold (`#FFCB6B`)**로, 실제 실행되는 함수는 **Electric Blue (`#61AFEF`)**로 명확히 분리하여 "선언"과 "로직"의 시각적 온도를 분리했습니다 (Warm vs Cool).
+- **Props & Keys**: 객체의 키 값에 **Cyan Ray (`#89DDFF`)**를 적용하여 일반 변수와 확실히 구분했습니다.
 
 ### 📝 Markdown
 
-- **Headings**: `fg_light(#FFFFFF)`와 `accent1(#F4F4F5)`을 사용하여 문서의 뼈대를 밝고 선명하게 보여줍니다.
-- **Code Blocks**: 배경색을 약간 밝게 처리하거나 `accent3(#CBD5E1)`를 사용하여 본문과 구분감을 줍니다.
-- **Links**: `Slate Blue(#94A3B8)`로 처리하여 클릭 가능한 요소임을 암시합니다.
+- **Headings**:
+  - H1: **Cyber Pink (`#FF5370`)** + Bold
+  - H2: **Solar Gold (`#FFCB6B`)** + Bold
+  - H3: **Aurora Green (`#7CEC9F`)**
+  - 문서의 계층 구조를 색상(무지개순 아님, 주목도순)으로 즉시 파악 가능하게 했습니다.
+- **Code Blocks**: 배경을 `#0F111A`로 살짝 띄워 본문과 분리감을 주었습니다.
 
 ### 🔧 JSON / YAML
 
-- **Keys vs Values**: 키(`Property`)는 차가운 색상, 값(`String`, `Number`)은 따뜻한 색상으로 대비시켜 데이터 구조가 한눈에 들어옵니다.
+- **Key Emphasis**: 키(Key)는 **Tangerine (`#F78C6C`)**이나 **Cyan Ray (`#89DDFF`)**로 강조하고, 값(Value)은 **Aurora Green (`#7CEC9F`)**으로 통일하여 `Key: Value` 패턴이 스트라이프 무늬처럼 정돈되어 보이게 했습니다.
 
 ---
 
 ## 4. UI & UX Elements
 
-### The "Luminous" Experience
+### The "Neon Edge" Experience
 
-- **Cursor Line**: 현재 줄은 `#18181B`로 아주 미세하게 밝아지지만, **현재 줄 번호**는 `#F4F4F5`(Ghost Silver)로 강하게 빛나 현재 위치를 즉관적으로 알려줍니다.
-- **Visual Selection**: 드래그 시 텍스트 색상을 반전시키지 않고, 배경을 `#27272A`로, 텍스트를 `#FFFFFF`로 유지하여 가독성을 해치지 않습니다.
-- **Diagnostics**:
-  - Error: `#E08A8A` (Muted Rose) - 눈을 찌르지 않는 부드러운 빨강
-  - Warning: `#D4C88C` (Brass)
-  - Info: `#94A3B8` (Slate Blue)
+- **Cursor**: `#FF5370`(Cyber Pink) 색상의 블록 커서를 사용하여 현재 위치를 놓치지 않게 했습니다.
+- **Line Number**:
+  - Current: `#FFFFFF` + Bold (강한 빛)
+  - Others: `#3B4261` (어두운 유리색, 시선 분산 방지)
+- **Visual Selection**: 드래그 영역의 배경을 `#2C3145` (Midnight Blue)로 설정하여, 텍스트 색상을 반전시키지 않고도 선택 영역이 고급스럽게 빛나도록 처리했습니다.
+- **Diagnostics (LSP)**:
+  - Error: **`#FF5370` (Red)** - 타협 없는 명확한 에러.
+  - Warning: **`#FFCB6B` (Yellow)** - 주의 집중.
+  - Hint: **`#89DDFF` (Cyan)** - 친절한 제안.
+  - Info: **`#61AFEF` (Blue)** - 정보성 메시지.
 
 ---
 
 ## 5. Terminal Colors (ANSI)
 
-내장 터미널(`:terminal`) 사용 시 적용되는 색상입니다.
+터미널에서도 Mumyeong 테마의 선명함을 유지합니다.
 
-| Color       | Normal               | Bright             |
-| :---------- | :------------------- | :----------------- |
-| **Black**   | `#18181B` (Onyx)     | `#71717A` (Zinc)   |
-| **Red**     | `#E08A8A` (Rose)     | `#E08A8A`          |
-| **Green**   | `#81C784` (Emerald)  | `#81C784`          |
-| **Yellow**  | `#D4C88C` (Brass)    | `#D4C88C`          |
-| **Blue**    | `#94A3B8` (Slate)    | `#A1A1AA` (Mist)   |
-| **Magenta** | `#C4A6CF` (Thistle)  | `#C4A6CF`          |
-| **Cyan**    | `#CBD5E1` (Metal)    | `#FFFFFF` (Snow)   |
-| **White**   | `#E4E4E7` (Platinum) | `#F4F4F5` (Silver) |
+| Color       | Normal             | Bright                 |
+| :---------- | :----------------- | :--------------------- |
+| **Black**   | `#1E2030` (Night)  | `#636E7B` (Smoke)      |
+| **Red**     | `#F07178` (Coral)  | `#FF5370` (Cyber Pink) |
+| **Green**   | `#C3E88D` (Leaf)   | `#7CEC9F` (Aurora)     |
+| **Yellow**  | `#FFCB6B` (Gold)   | `#F78C6C` (Tangerine)  |
+| **Blue**    | `#82AAFF` (Sky)    | `#61AFEF` (Electric)   |
+| **Magenta** | `#C792EA` (Violet) | `#BE95FF` (Nebula)     |
+| **Cyan**    | `#89DDFF` (Ray)    | `#A9F0FF` (Ice)        |
+| **White**   | `#D0D6E0` (Cloud)  | `#FFFFFF` (Star)       |

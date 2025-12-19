@@ -3,37 +3,37 @@ local p = require("bityoungjae.palette")
 local M = {}
 
 -- 공통 배경색
-local bg_statusline = p.bg_dark -- #18181B (Onyx)
-local fg_gutter = p.line_nr -- #71717A (Zinc)
+local bg_statusline = p.bg_dark -- #0F111A (Deep Space)
+local fg_gutter = p.line_nr -- #3B4261 (Ice Glass)
 
 M.normal = {
-  a = { bg = p.accent2, fg = p.bg, gui = "bold" }, -- Slate Blue
+  a = { bg = p.accent2, fg = p.bg, gui = "bold" }, -- Electric Blue
   b = { bg = fg_gutter, fg = p.accent2 },
   c = { bg = bg_statusline, fg = p.fg_dark },
 }
 
 M.insert = {
-  a = { bg = p.string, fg = p.bg, gui = "bold" }, -- Pale Emerald
+  a = { bg = p.string, fg = p.bg, gui = "bold" }, -- Aurora Green
   b = { bg = fg_gutter, fg = p.string },
 }
 
 M.command = {
-  a = { bg = p.type, fg = p.bg, gui = "bold" }, -- Brass
+  a = { bg = p.type, fg = p.bg, gui = "bold" }, -- Solar Gold
   b = { bg = fg_gutter, fg = p.type },
 }
 
 M.visual = {
-  a = { bg = p.keyword, fg = p.bg, gui = "bold" }, -- Thistle
+  a = { bg = p.keyword, fg = p.bg, gui = "bold" }, -- Neon Violet
   b = { bg = fg_gutter, fg = p.keyword },
 }
 
 M.replace = {
-  a = { bg = p.error, fg = p.bg, gui = "bold" }, -- Muted Rose
+  a = { bg = p.error, fg = p.bg, gui = "bold" }, -- Cyber Pink
   b = { bg = fg_gutter, fg = p.error },
 }
 
 M.terminal = {
-  a = { bg = p.string, fg = p.bg, gui = "bold" }, -- Pale Emerald
+  a = { bg = p.string, fg = p.bg, gui = "bold" }, -- Aurora Green
   b = { bg = fg_gutter, fg = p.string },
 }
 

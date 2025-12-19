@@ -4,15 +4,15 @@ local M = {}
 function M.setup(hl, p)
   local util = require("bityoungjae.util")
 
-  -- 마크다운 제목(H1-H6)을 위한 무지개 색상 정의
-  -- 팔레트의 accent와 syntax 색상을 조합하여 사용
+  -- 마크다운 제목(H1-H6)을 위한 색상 정의
+  -- 문서의 계층 구조를 색상(주목도순)으로 즉시 파악 가능하게 함
   local rainbow = {
-    p.accent1,     -- H1: Ghost Silver (가장 돋보임)
-    p.keyword,     -- H2: Thistle (보라/분홍)
-    p.type,        -- H3: Brass (노랑)
-    p.string,      -- H4: Pale Emerald (초록)
-    p.func,        -- H5: Slate Blue (시원한 파랑)
-    p.accent3,     -- H6: Cold Metal (청록)
+    p.md_h1,       -- H1: Cyber Pink (가장 돋보임)
+    p.md_h2,       -- H2: Solar Gold (따뜻한 강조)
+    p.md_h3,       -- H3: Aurora Green (산뜻한 민트)
+    p.func,        -- H4: Electric Blue (차가운 논리)
+    p.accent3,     -- H5: Cyan Ray (청록)
+    p.fg_dark,     -- H6: Steel Gray (은은함)
   }
 
   -- 기본 마크다운 요소

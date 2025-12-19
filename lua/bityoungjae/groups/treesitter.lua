@@ -88,13 +88,13 @@ function M.setup(hl, p)
   hl(0, "@markup.italic", { italic = true })
   hl(0, "@markup.strikethrough", { strikethrough = true })
   hl(0, "@markup.underline", { underline = true })
-  hl(0, "@markup.heading", { fg = p.accent1, bold = true })
-  hl(0, "@markup.heading.1", { fg = p.accent1, bold = true })
-  hl(0, "@markup.heading.2", { fg = p.accent1, bold = true })
-  hl(0, "@markup.heading.3", { fg = p.accent1, bold = true })
-  hl(0, "@markup.heading.4", { fg = p.accent1 })
-  hl(0, "@markup.heading.5", { fg = p.accent1 })
-  hl(0, "@markup.heading.6", { fg = p.accent1 })
+  hl(0, "@markup.heading", { fg = p.md_h1, bold = true })
+  hl(0, "@markup.heading.1", { fg = p.md_h1, bold = true })
+  hl(0, "@markup.heading.2", { fg = p.md_h2, bold = true })
+  hl(0, "@markup.heading.3", { fg = p.md_h3 })
+  hl(0, "@markup.heading.4", { fg = p.md_h3 })
+  hl(0, "@markup.heading.5", { fg = p.fg })
+  hl(0, "@markup.heading.6", { fg = p.fg })
   hl(0, "@markup.quote", { fg = p.comment, italic = true })
   hl(0, "@markup.math", { fg = p.accent2 })
   hl(0, "@markup.link", { fg = p.accent1 })
@@ -120,6 +120,10 @@ function M.setup(hl, p)
   -- 기타
   hl(0, "@operator", { fg = p.operator })
   hl(0, "@none", {})
+
+  -- Clojure 전용: 괄호를 배경보다 조금만 더 밝게 처리하여 괄호 지옥을 시각적으로 소거
+  hl(0, "@punctuation.bracket.clojure", { fg = p.clojure_paren })
+  hl(0, "@punctuation.delimiter.clojure", { fg = p.clojure_paren })
 end
 
 return M
