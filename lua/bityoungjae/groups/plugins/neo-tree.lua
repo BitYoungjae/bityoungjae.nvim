@@ -2,11 +2,16 @@
 local M = {}
 
 function M.setup(hl, p)
-  hl(0, "NeoTreeNormal", { fg = p.fg, bg = p.bg_dark })
-  hl(0, "NeoTreeNormalNC", { fg = p.fg, bg = p.bg_dark })
-  hl(0, "NeoTreeDirectoryName", { fg = p.accent1 })
-  hl(0, "NeoTreeDirectoryIcon", { fg = p.accent1 })
-  hl(0, "NeoTreeRootName", { fg = p.accent1, bold = true })
+  local util = require("bityoungjae.util")
+
+  -- 디렉터리 색상: accent1의 채도를 70%로 낮춤
+  local dir_color = util.saturate(p.accent1, 0.7)
+
+  hl(0, "NeoTreeNormal", { fg = p.fg, bg = p.bg_light })
+  hl(0, "NeoTreeNormalNC", { fg = p.fg, bg = p.bg_light })
+  hl(0, "NeoTreeDirectoryName", { fg = dir_color })
+  hl(0, "NeoTreeDirectoryIcon", { fg = dir_color })
+  hl(0, "NeoTreeRootName", { fg = dir_color, bold = true })
   hl(0, "NeoTreeFileName", { fg = p.fg })
   hl(0, "NeoTreeFileIcon", { fg = p.fg })
   hl(0, "NeoTreeGitAdded", { fg = p.git_add })
