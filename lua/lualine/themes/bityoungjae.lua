@@ -7,8 +7,8 @@ local bg_statusline = p.bg_dark -- #0F111A (Deep Space)
 local fg_gutter = p.line_nr -- #3B4261 (Ice Glass)
 
 M.normal = {
-  a = { bg = p.accent2, fg = p.bg, gui = "bold" }, -- Electric Blue
-  b = { bg = fg_gutter, fg = p.accent2 },
+  a = { bg = p.func, fg = p.bg, gui = "bold" }, -- Electric Blue
+  b = { bg = fg_gutter, fg = p.func },
   c = { bg = bg_statusline, fg = p.fg_dark },
 }
 
@@ -38,7 +38,7 @@ M.terminal = {
 }
 
 M.inactive = {
-  a = { bg = bg_statusline, fg = p.accent2 },
+  a = { bg = bg_statusline, fg = p.func },
   b = { bg = bg_statusline, fg = fg_gutter, gui = "bold" },
   c = { bg = bg_statusline, fg = fg_gutter },
 }
