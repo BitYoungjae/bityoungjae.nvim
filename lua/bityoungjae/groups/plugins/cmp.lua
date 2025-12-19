@@ -1,0 +1,38 @@
+-- nvim-cmp 하이라이트 설정
+local M = {}
+
+function M.setup(hl, p)
+  hl(0, "CmpItemAbbr", { fg = p.fg })
+  hl(0, "CmpItemAbbrDeprecated", { fg = p.fg_dark, strikethrough = true })
+  hl(0, "CmpItemAbbrMatch", { fg = p.accent1, bold = true })
+  hl(0, "CmpItemAbbrMatchFuzzy", { fg = p.accent1, bold = true })
+  hl(0, "CmpItemMenu", { fg = p.fg_dark })
+  hl(0, "CmpItemKindDefault", { fg = p.fg_dark })
+  hl(0, "CmpItemKindKeyword", { fg = p.keyword })
+  hl(0, "CmpItemKindVariable", { fg = p.variable })
+  hl(0, "CmpItemKindConstant", { fg = p.constant })
+  hl(0, "CmpItemKindReference", { fg = p.variable })
+  hl(0, "CmpItemKindValue", { fg = p.constant })
+  hl(0, "CmpItemKindFunction", { fg = p.func })
+  hl(0, "CmpItemKindMethod", { fg = p.func })
+  hl(0, "CmpItemKindConstructor", { fg = p.type })
+  hl(0, "CmpItemKindClass", { fg = p.type })
+  hl(0, "CmpItemKindInterface", { fg = p.type })
+  hl(0, "CmpItemKindStruct", { fg = p.type })
+  hl(0, "CmpItemKindEvent", { fg = p.type })
+  hl(0, "CmpItemKindEnum", { fg = p.type })
+  hl(0, "CmpItemKindUnit", { fg = p.type })
+  hl(0, "CmpItemKindModule", { fg = p.namespace })
+  hl(0, "CmpItemKindProperty", { fg = p.property })
+  hl(0, "CmpItemKindField", { fg = p.property })
+  hl(0, "CmpItemKindTypeParameter", { fg = p.type })
+  hl(0, "CmpItemKindEnumMember", { fg = p.constant })
+  hl(0, "CmpItemKindOperator", { fg = p.operator })
+  hl(0, "CmpItemKindSnippet", { fg = p.special })
+  hl(0, "CmpItemKindText", { fg = p.fg })
+  hl(0, "CmpItemKindFile", { fg = p.fg })
+  hl(0, "CmpItemKindFolder", { fg = p.accent1 })
+  hl(0, "CmpItemKindColor", { fg = p.special })
+end
+
+return M
