@@ -84,7 +84,7 @@ function M.setup(hl, p)
   hl(0, "@comment.note", { fg = p.info })
 
   -- 마크업
-  hl(0, "@markup.strong", { bold = true })
+  hl(0, "@markup.strong", { fg = p.fg_light, bold = true })
   hl(0, "@markup.italic", { italic = true })
   hl(0, "@markup.strikethrough", { strikethrough = true })
   hl(0, "@markup.underline", { underline = true })
