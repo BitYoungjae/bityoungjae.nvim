@@ -42,7 +42,7 @@
 ## 3. Language Optimizations
 
 ### λ Clojure (Lisp)
-- **Parentheses (`#444B5E`)**: 괄호를 배경보다 조금만 더 밝게 처리하여 시각적 노이즈를 제거했습니다. 코드가 공중에 떠 있는 듯한 느낌을 줍니다.
+- **Parentheses (`#5E6880`)**: 괄호를 배경보다 조금만 더 밝게 처리하여 시각적 노이즈를 제거했습니다. 코드가 공중에 떠 있는 듯한 느낌을 줍니다.
 - **Keyword (`#C792EA`)**: 보라색 네온으로 함수형 흐름의 핵심을 강조합니다.
 
 ### 📘 TypeScript / JavaScript
