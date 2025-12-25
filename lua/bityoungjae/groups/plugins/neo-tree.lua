@@ -9,6 +9,7 @@ function M.setup(hl, p)
 
   hl(0, "NeoTreeNormal", { fg = p.fg, bg = p.bg_light })
   hl(0, "NeoTreeNormalNC", { fg = p.fg, bg = p.bg_light })
+  hl(0, "NeoTreeCursorLine", { bg = p.selection })
   hl(0, "NeoTreeDirectoryName", { fg = dir_color })
   hl(0, "NeoTreeDirectoryIcon", { fg = dir_color })
   hl(0, "NeoTreeRootName", { fg = dir_color, bold = true })

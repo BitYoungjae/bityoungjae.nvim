@@ -2,10 +2,14 @@
 local M = {}
 
 function M.setup(hl, p)
-  hl(0, "DashboardHeader", { fg = p.accent1 })
+  -- 헤더: Soft Rose (가장 눈에 띄게)
+  hl(0, "DashboardHeader", { fg = p.constant })
+  -- 중앙 메뉴: 기본 텍스트
   hl(0, "DashboardCenter", { fg = p.fg })
-  hl(0, "DashboardFooter", { fg = p.fg_dark })
-  hl(0, "DashboardShortCut", { fg = p.accent2 })
+  -- 푸터: Slate Smoke (주석 색상)
+  hl(0, "DashboardFooter", { fg = p.comment })
+  -- 단축키: Warm Sand (부드러운 강조)
+  hl(0, "DashboardShortCut", { fg = p.type })
 end
 
 return M
