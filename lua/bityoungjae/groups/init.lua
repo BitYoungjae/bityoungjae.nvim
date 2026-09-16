@@ -1,8 +1,8 @@
 -- 하이라이트 그룹 로더
 local M = {}
 
--- 코어 그룹
-local groups = {
+-- 코어 그룹 — 아키텍처 축. 로드 순서가 의미 있으므로 명시한다.
+local core_groups = {
   "bityoungjae.groups.editor",
   "bityoungjae.groups.syntax",
   "bityoungjae.groups.treesitter",
@@ -11,42 +11,28 @@ local groups = {
   "bityoungjae.groups.git",
 }
 
--- 플러그인 그룹
-local plugins = {
-  "bityoungjae.groups.plugins.cmp",
-  "bityoungjae.groups.plugins.telescope",
-  "bityoungjae.groups.plugins.neo-tree",
-  "bityoungjae.groups.plugins.gitsigns",
-  "bityoungjae.groups.plugins.indent-blankline",
-  "bityoungjae.groups.plugins.which-key",
-  "bityoungjae.groups.plugins.lazy",
-  "bityoungjae.groups.plugins.mason",
-  "bityoungjae.groups.plugins.dashboard",
-  "bityoungjae.groups.plugins.noice",
-  "bityoungjae.groups.plugins.snacks",
-  "bityoungjae.groups.plugins.blink",
-  "bityoungjae.groups.plugins.bufferline",
-  "bityoungjae.groups.plugins.trouble",
-  "bityoungjae.groups.plugins.flash",
-  "bityoungjae.groups.plugins.mini-indentscope",
-  "bityoungjae.groups.plugins.treesitter-context",
-  "bityoungjae.groups.plugins.render-markdown",
-  "bityoungjae.groups.plugins.todo-comments",
-  "bityoungjae.groups.plugins.grug-far",
-  "bityoungjae.groups.plugins.smear-cursor",
-}
+-- plugins/ 아래는 파일만 추가하면 자동 등록된다 (readdir: nvim 0.8 호환)
+local function plugin_group_names()
+  local here = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h")
+  local names = {}
+  for _, file in ipairs(vim.fn.readdir(here .. "/plugins")) do
+    if file:sub(-4) == ".lua" then
+      names[#names + 1] = file:sub(1, -5)
+    end
+  end
+  table.sort(names)
+  return names
+end
 
 function M.setup(p)
   local hl = vim.api.nvim_set_hl
 
-  -- 코어 그룹 로드
-  for _, name in ipairs(groups) do
+  for _, name in ipairs(core_groups) do
     require(name).setup(hl, p)
   end
 
-  -- 플러그인 그룹 로드
-  for _, name in ipairs(plugins) do
-    require(name).setup(hl, p)
+  for _, name in ipairs(plugin_group_names()) do
+    require("bityoungjae.groups.plugins." .. name).setup(hl, p)
   end
 end
 
