@@ -19,13 +19,15 @@ function M.setup(opts)
     M.config = vim.tbl_deep_extend("force", M.config, opts)
   end
 
-  -- 팔레트 로드
-  local palette = require("bityoungjae.palette")
+  -- 팔레트 로드. 원본 모듈은 보존하고 복사본에만 설정을 반영한다
+  -- (재로드 시 원래 색이 복원됨)
+  local palette = vim.tbl_extend("force", {}, require("bityoungjae.palette"))
 
-  -- 투명도 설정이 활성화된 경우 적용
+  -- 투명도는 편집 영역 배경에만 적용한다. 팝업·상태줄(bg_dark)은 가독성을 위해
+  -- 불투명을 유지하며, 틴트 배경(diff·진단)은 util.blend가 기본 배경으로
+  -- 계산하므로 그대로 살아있는다.
   if M.config.transparent then
     palette.bg = "NONE"
-    palette.bg_dark = "NONE"
   end
 
   -- 하이라이트 로드 및 적용

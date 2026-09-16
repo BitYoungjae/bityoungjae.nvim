@@ -7,13 +7,13 @@ function M.setup(hl, p)
   hl(0, "BlinkCmpDocBorder", { fg = p.border, bg = p.bg_dark })
 
   -- 고스트 텍스트
-  hl(0, "BlinkCmpGhostText", { fg = p.terminal.black })
+  hl(0, "BlinkCmpGhostText", { fg = p.ghost })
 
   -- AI 자동완성 소스
-  hl(0, "BlinkCmpKindCodeium", { fg = p.accent3 })
-  hl(0, "BlinkCmpKindCopilot", { fg = p.accent3 })
-  hl(0, "BlinkCmpKindSupermaven", { fg = p.accent3 })
-  hl(0, "BlinkCmpKindTabNine", { fg = p.accent3 })
+  hl(0, "BlinkCmpKindCodeium", { fg = p.property })
+  hl(0, "BlinkCmpKindCopilot", { fg = p.property })
+  hl(0, "BlinkCmpKindSupermaven", { fg = p.property })
+  hl(0, "BlinkCmpKindTabNine", { fg = p.property })
 
   -- 기본 kind
   hl(0, "BlinkCmpKindDefault", { fg = p.fg_dark })
@@ -21,7 +21,7 @@ function M.setup(hl, p)
   -- 레이블
   hl(0, "BlinkCmpLabel", { fg = p.fg })
   hl(0, "BlinkCmpLabelDeprecated", { fg = p.fg_dark, strikethrough = true })
-  hl(0, "BlinkCmpLabelMatch", { fg = p.accent1, bold = true })
+  hl(0, "BlinkCmpLabelMatch", { fg = p.ui_accent, bold = true })
 
   -- 메뉴
   hl(0, "BlinkCmpMenu", { fg = p.fg, bg = p.bg_dark })
@@ -43,7 +43,7 @@ function M.setup(hl, p)
   hl(0, "BlinkCmpKindEvent", { fg = p.special })
   hl(0, "BlinkCmpKindField", { fg = p.property })
   hl(0, "BlinkCmpKindFile", { fg = p.fg })
-  hl(0, "BlinkCmpKindFolder", { fg = p.accent1 })
+  hl(0, "BlinkCmpKindFolder", { fg = p.ui_accent })
   hl(0, "BlinkCmpKindFunction", { fg = p.func })
   hl(0, "BlinkCmpKindInterface", { fg = p.type })
   hl(0, "BlinkCmpKindKey", { fg = p.property })

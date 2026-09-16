@@ -2,11 +2,8 @@
 local M = {}
 
 function M.setup(hl, p)
-  -- MiniIndentscopeSymbol: 현재 스코프를 표시하는 세로선
-  -- Warm Sand (따뜻한 모래색)로 스코프 강조
-  hl(0, "MiniIndentscopeSymbol", { fg = p.type, nocombine = true })
-
-  -- MiniIndentscopePrefix: 보이지 않게 설정
+  -- IblScope 와 동일하게 함수색(형광)으로 현재 스코프만 표시
+  hl(0, "MiniIndentscopeSymbol", { fg = p.func, nocombine = true })
   hl(0, "MiniIndentscopePrefix", { nocombine = true })
 end
 

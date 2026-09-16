@@ -2,7 +2,8 @@
 local M = {}
 
 function M.setup(hl, p)
-  -- 식별자
+  local italic_comments = require("bityoungjae").config.italic_comments ~= false
+
   hl(0, "@variable", { fg = p.variable })
   hl(0, "@variable.builtin", { fg = p.special })
   hl(0, "@variable.parameter", { fg = p.parameter })
@@ -14,36 +15,33 @@ function M.setup(hl, p)
 
   hl(0, "@module", { fg = p.namespace })
   hl(0, "@module.builtin", { fg = p.namespace })
-  hl(0, "@label", { fg = p.label })
+  hl(0, "@label", { fg = p.label, bold = true })
 
-  -- 리터럴
   hl(0, "@string", { fg = p.string })
   hl(0, "@string.documentation", { fg = p.string })
   hl(0, "@string.regexp", { fg = p.special })
   hl(0, "@string.escape", { fg = p.special })
   hl(0, "@string.special", { fg = p.special })
   hl(0, "@string.special.symbol", { fg = p.constant })
-  hl(0, "@string.special.url", { fg = p.accent1, underline = true })
-  hl(0, "@string.special.path", { fg = p.accent1 })
+  hl(0, "@string.special.url", { fg = p.md_link, underline = true })
+  hl(0, "@string.special.path", { fg = p.md_link })
 
   hl(0, "@character", { fg = p.string })
   hl(0, "@character.special", { fg = p.special })
 
-  hl(0, "@boolean", { fg = p.number })
+  hl(0, "@boolean", { fg = p.constant })
   hl(0, "@number", { fg = p.number })
   hl(0, "@number.float", { fg = p.number })
 
-  -- 타입
   hl(0, "@type", { fg = p.type })
   hl(0, "@type.builtin", { fg = p.type })
   hl(0, "@type.definition", { fg = p.type })
-  hl(0, "@type.qualifier", { fg = p.keyword })
+  hl(0, "@type.qualifier", { fg = p.keyword, bold = true })
 
   hl(0, "@attribute", { fg = p.macro })
   hl(0, "@attribute.builtin", { fg = p.macro })
   hl(0, "@property", { fg = p.property })
 
-  -- 함수
   hl(0, "@function", { fg = p.func })
   hl(0, "@function.builtin", { fg = p.func })
   hl(0, "@function.call", { fg = p.func })
@@ -53,78 +51,68 @@ function M.setup(hl, p)
 
   hl(0, "@constructor", { fg = p.type })
 
-  -- 키워드
-  hl(0, "@keyword", { fg = p.keyword })
-  hl(0, "@keyword.coroutine", { fg = p.keyword })
-  hl(0, "@keyword.function", { fg = p.keyword })
-  hl(0, "@keyword.operator", { fg = p.keyword })
-  hl(0, "@keyword.import", { fg = p.macro })
-  hl(0, "@keyword.type", { fg = p.keyword })
-  hl(0, "@keyword.modifier", { fg = p.keyword })
-  hl(0, "@keyword.repeat", { fg = p.keyword })
-  hl(0, "@keyword.return", { fg = p.keyword })
+  hl(0, "@keyword", { fg = p.keyword, bold = true })
+  hl(0, "@keyword.coroutine", { fg = p.keyword, bold = true })
+  hl(0, "@keyword.function", { fg = p.keyword, bold = true })
+  hl(0, "@keyword.operator", { fg = p.keyword, bold = true })
+  hl(0, "@keyword.import", { fg = p.keyword, bold = true })
+  hl(0, "@keyword.type", { fg = p.keyword, bold = true })
+  hl(0, "@keyword.modifier", { fg = p.keyword, bold = true })
+  hl(0, "@keyword.repeat", { fg = p.keyword, bold = true })
+  hl(0, "@keyword.return", { fg = p.keyword, bold = true })
   hl(0, "@keyword.debug", { fg = p.warning })
-  hl(0, "@keyword.exception", { fg = p.keyword })
-  hl(0, "@keyword.conditional", { fg = p.keyword })
-  hl(0, "@keyword.conditional.ternary", { fg = p.keyword })
+  hl(0, "@keyword.exception", { fg = p.keyword, bold = true })
+  hl(0, "@keyword.conditional", { fg = p.keyword, bold = true })
+  hl(0, "@keyword.conditional.ternary", { fg = p.keyword, bold = true })
   hl(0, "@keyword.directive", { fg = p.macro })
   hl(0, "@keyword.directive.define", { fg = p.macro })
 
-  -- 구두점
   hl(0, "@punctuation.delimiter", { fg = p.punctuation })
   hl(0, "@punctuation.bracket", { fg = p.punctuation })
   hl(0, "@punctuation.special", { fg = p.special })
+  hl(0, "@punctuation.special.markdown", { fg = p.md_delimiter })
 
-  -- 마크다운 전용 구두점
-  hl(0, "@punctuation.special.markdown", { fg = p.md_delimiter }) -- Delimiter: Slate Smoke (#636E7B)
-
-  -- 주석
-  hl(0, "@comment", { fg = p.comment, italic = true })
-  hl(0, "@comment.documentation", { fg = p.comment, italic = true })
+  hl(0, "@comment", { fg = p.comment, italic = italic_comments })
+  hl(0, "@comment.documentation", { fg = p.comment, italic = italic_comments })
   hl(0, "@comment.error", { fg = p.error })
   hl(0, "@comment.warning", { fg = p.warning })
-  hl(0, "@comment.todo", { fg = p.bg, bg = p.accent1, bold = true })
+  hl(0, "@comment.todo", { fg = p.bg, bg = p.ui_accent, bold = true })
   hl(0, "@comment.note", { fg = p.info })
 
-  -- 마크업 (Markdown Color Palette)
-  hl(0, "@markup.strong", { fg = p.md_emphasis, bold = true })    -- Soft Coral (#E89B82)
-  hl(0, "@markup.italic", { fg = p.md_emphasis, italic = true })  -- Soft Coral (#E89B82)
+  hl(0, "@markup.strong", { fg = p.md_emphasis, bold = true })
+  hl(0, "@markup.italic", { fg = p.md_emphasis, italic = true })
   hl(0, "@markup.strikethrough", { strikethrough = true })
   hl(0, "@markup.underline", { underline = true })
-  hl(0, "@markup.heading", { fg = p.md_heading, bold = true })    -- Soft Rose (#E8717E)
-  hl(0, "@markup.heading.1", { fg = p.md_heading, bold = true })  -- Soft Rose (#E8717E)
-  hl(0, "@markup.heading.2", { fg = p.md_heading, bold = true })  -- Soft Rose (#E8717E)
-  hl(0, "@markup.heading.3", { fg = p.md_heading, bold = true })  -- Soft Rose (#E8717E)
-  hl(0, "@markup.heading.4", { fg = p.md_heading, bold = true })  -- Soft Rose (#E8717E)
-  hl(0, "@markup.heading.5", { fg = p.md_heading, bold = true })  -- Soft Rose (#E8717E)
-  hl(0, "@markup.heading.6", { fg = p.md_heading, bold = true })  -- Soft Rose (#E8717E)
-  hl(0, "@markup.quote", { fg = p.md_code, italic = true })       -- Soft Mint (#8FD4A5)
-  hl(0, "@markup.math", { fg = p.md_list })                       -- Warm Sand (#E8C882)
-  hl(0, "@markup.link", { fg = p.md_link })                       -- Soft Sky (#7BB8E0)
-  hl(0, "@markup.link.label", { fg = p.md_link })                 -- Soft Sky (#7BB8E0)
-  hl(0, "@markup.link.url", { fg = p.md_code, underline = true }) -- Soft Mint (#8FD4A5)
-  hl(0, "@markup.raw", { fg = p.md_code, bg = p.bg_dark })        -- Soft Mint (#8FD4A5), bg: #1E2028
-  hl(0, "@markup.raw.block", { fg = p.md_code_block })            -- Soft Teal (#8ED8D8)
-  hl(0, "@markup.list", { fg = p.md_list })                       -- Warm Sand (#E8C882)
-  hl(0, "@markup.list.checked", { fg = p.git_add })               -- Soft Mint (#8FD4A5)
-  hl(0, "@markup.list.unchecked", { fg = p.fg_dark })             -- Slate Smoke (#636E7B)
+  hl(0, "@markup.heading", { fg = p.md_h1, bold = true })
+  hl(0, "@markup.heading.1", { fg = p.md_h1, bold = true })
+  hl(0, "@markup.heading.2", { fg = p.md_h2, bold = true })
+  hl(0, "@markup.heading.3", { fg = p.md_h3, bold = true })
+  hl(0, "@markup.heading.4", { fg = p.md_h4, bold = true })
+  hl(0, "@markup.heading.5", { fg = p.md_h5, bold = true })
+  hl(0, "@markup.heading.6", { fg = p.md_h6, bold = true })
+  hl(0, "@markup.quote", { fg = p.md_code, italic = true })
+  hl(0, "@markup.math", { fg = p.md_list })
+  hl(0, "@markup.link", { fg = p.md_link })
+  hl(0, "@markup.link.label", { fg = p.md_link })
+  hl(0, "@markup.link.url", { fg = p.md_code, underline = true })
+  hl(0, "@markup.raw", { fg = p.md_code, bg = p.bg_dark })
+  hl(0, "@markup.raw.block", { fg = p.md_code_block })
+  hl(0, "@markup.list", { fg = p.md_list })
+  hl(0, "@markup.list.checked", { fg = p.git_add })
+  hl(0, "@markup.list.unchecked", { fg = p.fg_dark })
 
-  -- Diff
   hl(0, "@diff.plus", { fg = p.git_add })
   hl(0, "@diff.minus", { fg = p.git_delete })
   hl(0, "@diff.delta", { fg = p.git_change })
 
-  -- 태그 (HTML/JSX)
-  hl(0, "@tag", { fg = p.accent1 })
-  hl(0, "@tag.builtin", { fg = p.accent1 })
+  hl(0, "@tag", { fg = p.ui_accent })
+  hl(0, "@tag.builtin", { fg = p.ui_accent })
   hl(0, "@tag.attribute", { fg = p.property })
   hl(0, "@tag.delimiter", { fg = p.punctuation })
 
-  -- 기타
   hl(0, "@operator", { fg = p.operator })
   hl(0, "@none", {})
 
-  -- Clojure 전용: 괄호를 배경보다 조금만 더 밝게 처리하여 괄호 지옥을 시각적으로 소거
   hl(0, "@punctuation.bracket.clojure", { fg = p.clojure_paren })
   hl(0, "@punctuation.delimiter.clojure", { fg = p.clojure_paren })
 end

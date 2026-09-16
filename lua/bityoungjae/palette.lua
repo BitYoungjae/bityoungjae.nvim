@@ -1,164 +1,140 @@
 -- palette.lua
 -- =============================================================================
--- Palette: Mumyeong (무명) v3.0 - Deep Void & Bioluminescent Neon
+-- Palette: Mumyeong (무명) - Neon Glass
 -- =============================================================================
 -- 최적화 대상: Clojure, TypeScript, Markdown, JSON
--- 설계 철학: "심해 속의 형광" (High Contrast, Deep Black, Neon Accents)
+-- 설계 철학: omarchy-mumyeong-theme("Neutral Void, 무채색의 공허")와 같은 결.
+-- 배경·패널·선택·커서·진단은 데스크톱 아연 시스템을 그대로 입고(유리처럼 중립),
+-- 코드 토큰만 형광 채도를 유지한다 — 벽지 대신 코드가 주인공.
+-- oma* 표기는 데스크톱 팔레트(colors.toml)의 앵커를 뜻한다.
 -- =============================================================================
 
 local M = {}
 
 -- =============================================================================
--- 기본 색상 (Base Palette)
+-- 모노톤 사다리 (휘도 순) — 데스크톱 carbon layer와 1:1
+-- bg → bg_light/bg_dark → cursor_line → selection
+-- → line_nr → punctuation → operator → comment → parameter → fg → fg_light
 -- =============================================================================
--- Void (Abyss) - 메인 편집 영역 배경
-M.bg = "#111117"
--- Night Shade - Neo-tree (메인보다 살짝 밝게)
-M.bg_light = "#16171F"
--- Deep Space - 팝업, 자동완성, 상태바 (확실히 떠 보이게)
-M.bg_dark = "#1E2028"
-
--- Frost White - 기본 텍스트 (누런끼 없는 차가운 백색)
-M.fg = "#ECEFF4"
--- Slate Smoke - 주석, 무시해도 되는 정보 (푸른끼 도는 회색)
-M.fg_dark = "#636E7B"
--- Starlight - 강조 텍스트 (순백색)
-M.fg_light = "#FFFFFF"
-
--- =============================================================================
--- UI 색상 (UI Elements)
--- =============================================================================
--- Ice Glass - 창 테두리 (차가운 유리 느낌)
-M.border = "#3B4261"
--- Midnight Blue - 선택 영역 배경 (텍스트 반전 없이 배경만 은은하게)
-M.selection = "#2C3145"
--- Deep Current - 커서 라인 (배경과 거의 차이 없게, 미세한 밝기)
-M.cursor_line = "#12141C"
--- Deep Steel - 비활성 줄 번호
-M.line_nr = "#3B4261"
--- Starlight - 활성 줄 번호 (강한 빛)
-M.line_nr_cur = "#FFFFFF"
+M.bg = "#09090B"          -- oma0 Void - 메인 편집 영역
+M.bg_light = "#18181B"    -- oma1 Onyx - 사이드바 (ghostty 배경과 동일)
+M.bg_dark = "#18181B"     -- oma1 Onyx - 팝업, 플로트, 상태줄
+M.cursor_line = "#202024" -- 커서 라인 (배경 대비 ~1.23:1)
+M.selection = "#27272A"   -- oma2 Charcoal - Visual (데스크톱 선택색과 동일)
+M.border = "#4E4E57"      -- 창 경계·유리 단면 (데스크톱 경계 철학을 따라 판독 가능하게)
+M.line_nr = "#62626C"     -- 비활성 줄 번호
+M.line_nr_cur = "#E4E4E7" -- oma5 Platinum - 활성 줄 번호 (#FFFFFF 아님)
+M.whitespace = "#303039"  -- 리스트 문자 (줄 번호보다 한 계단 어둡게)
+M.ghost = "#585862"       -- blink.cmp 고스트 텍스트
 
 -- =============================================================================
--- 구문 색상 (Syntax Highlights) - Soft Pastel Set
+-- 본문 — 무명. 순백 금지, 할로네이션 밴드 유지 (~9.7:1, APCA Lc -62)
 -- =============================================================================
--- Slate Smoke - 주석
-M.comment = "#636E7B"
--- Soft Mint - 문자열 (부드러운 민트 그린)
-M.string = "#8FD4A5"
--- Soft Coral - 숫자/불리언 (부드러운 코랄)
-M.number = "#E89B82"
--- Soft Lavender - 키워드/제어문 (부드러운 라벤더색)
-M.keyword = "#C9A0DC"
--- Soft Sky - 함수/메서드 (부드러운 하늘색)
-M.func = "#7BB8E0"
--- Warm Sand - 타입/클래스 (따뜻한 모래색)
-M.type = "#E8C882"
--- Frost White - 일반 변수
-M.variable = "#ECEFF4"
--- Soft Rose - 상수/매크로 (부드러운 장미색)
-M.constant = "#E8717E"
--- Soft Teal - 연산자 (부드러운 청록색)
-M.operator = "#8ED8D8"
--- Steel Gray - 괄호/구분자 (Clojure 가독성 핵심: 튀지 않게)
-M.punctuation = "#8892A0"
+M.fg = "#B4B4BC"          -- oma4를 본문용으로 반 계단 밝게
+M.fg_dark = "#94949C"     -- 주석 (배경·CursorLine·Visual 모두 ≥ 4.5)
+M.fg_light = "#E4E4E7"    -- oma5 Platinum - 드문 강조
+M.parameter = "#A1A1AA"   -- oma4 Mist - 본문보다 반 계단 아래 (의도된 근접)
 
 -- =============================================================================
--- 언어별 최적화 (Semantic)
+-- UI — 액센트는 색이 아니라 빛 (Ghost Silver). 에러 로즈와 무관.
 -- =============================================================================
--- Soft Teal - 객체 속성 (JSON Key, Object Property)
-M.property = "#8ED8D8"
--- Cloud Gray - 파라미터
-M.parameter = "#D0D6E0"
--- Soft Lavender - 레이블
-M.label = "#C9A0DC"
--- Warm Sand - 네임스페이스
-M.namespace = "#E8C882"
--- Soft Rose - 매크로 정의
-M.macro = "#E8717E"
--- Soft Teal - 이스케이프/특수문자
-M.special = "#8ED8D8"
+M.cursor = "#F4F4F5"      -- oma8 Ghost Silver (ghostty 커서와 동일)
+M.ui_accent = "#F4F4F5"   -- oma8 - 타이틀, 디렉터리, 매치 캐럿
+M.bg_search = "#2E3A4A"   -- 슬레이트 틴트 (반전 아님)
+M.bg_search_inc = "#2D3B33" -- 에메랄드 틴트
+M.bg_ref = "#141419"      -- LSP 참조 하이라이트
 
 -- =============================================================================
--- Clojure 전용
+-- 구문 — 배경은 유리, 토큰은 형광. hue는 데스크톱 시맨틱에서 왔다.
+-- 키워드는 bold. 상수는 뮤트 골드(에러가 아님).
 -- =============================================================================
--- Steel Gray - 괄호를 배경보다 조금만 더 밝게 처리하여 괄호 지옥을 시각적으로 소거
-M.clojure_paren = "#8892A0"
+M.comment = "#9BA3AF"     -- 슬레이트 기운의 유리빛
+M.func = "#7DC4FF"        -- 하늘 형광 (oma9 슬레이트의 채도를 되살린 주 신호)
+M.string = "#82D9A4"      -- 에메랄드 (oma14 형제)
+M.type = "#F0D48A"        -- 브라스 상향 (oma13 hue)
+M.number = "#EDA87C"      -- oma12 Sand를 편집기용으로 반 계단 밝게
+M.constant = "#CBAF8F"    -- 뮤트 골드. 에러가 아님
+M.keyword = "#C79FD6"     -- oma15 Thistle 상향
+M.property = "#74C0BE"    -- 청록 (JSON 키, 멤버)
+M.macro = "#A18CE0"       -- 바이올렛 (키워드 염주와 ΔE 19+)
+M.special = "#52CCE8"     -- 시안 (이스케이프, builtin)
+M.operator = "#8593A3"    -- 후퇴하는 스틸
+M.punctuation = "#7E8695"
 
 -- =============================================================================
--- Markdown 전용 (모든 헤딩은 동일한 Soft Rose 사용)
+-- 시맨틱
 -- =============================================================================
--- Soft Rose - Heading (모든 레벨)
-M.md_heading = "#E8717E"
--- Soft Coral - Bold, Italic
-M.md_emphasis = "#E89B82"
--- Soft Sky - Link Text
-M.md_link = "#7BB8E0"
--- Soft Mint - Link URL, Inline Code, Blockquote
-M.md_code = "#8FD4A5"
--- Soft Teal - Code Block
-M.md_code_block = "#8ED8D8"
--- Warm Sand - List Marker, Table Header
-M.md_list = "#E8C882"
--- Soft Lavender - Horizontal Rule
-M.md_hr = "#C9A0DC"
--- Slate Smoke - Delimiter, Table Align
-M.md_delimiter = "#636E7B"
--- Steel Gray - Table Pipe
-M.md_table = "#8892A0"
-
--- 하위 호환성 (deprecated, 향후 제거 예정)
-M.md_h1 = "#E8717E"
-M.md_h2 = "#E8717E"
-M.md_h3 = "#E8717E"
+M.label = M.keyword
+M.namespace = M.type
 
 -- =============================================================================
--- 진단 색상 (Diagnostics) - 부드럽고 눈에 편안한 파스텔 톤
+-- Clojure — 전역 구두점보다 한 계단 어두운 괄호 (괄호 지옥 낮추기)
 -- =============================================================================
-M.error = "#E8717E"   -- Soft Rose (부드러운 장미색)
-M.warning = "#E8C882" -- Warm Sand (따뜻한 모래색)
-M.info = "#7BB8E0"    -- Soft Sky (부드러운 하늘색)
-M.hint = "#8ED8D8"    -- Soft Teal (부드러운 청록색)
+M.clojure_paren = "#6B6B75"
 
 -- =============================================================================
--- Git (Version Control)
+-- Markdown — 같은 하늘 hue의 H1→H6 밝기 램프. 코드 블록은 oma10 금속성.
 -- =============================================================================
-M.git_add = "#8FD4A5"    -- Soft Mint (부드러운 민트색)
-M.git_change = "#7BB8E0" -- Soft Sky (부드러운 하늘색)
-M.git_delete = "#E8717E" -- Soft Rose (부드러운 장미색)
+M.md_h1 = "#7DC4FF"
+M.md_h2 = "#74B9F3"
+M.md_h3 = "#6CAEE8"
+M.md_h4 = "#65A3DC"
+M.md_h5 = "#6198D0"
+M.md_h6 = "#5D8FC4"
+M.md_heading = M.md_h1
+M.md_emphasis = M.number
+M.md_link = M.func
+M.md_code = "#CBD5E1"       -- oma10 Frost Linen (데스크톱 '코드 블록'과 동일)
+M.md_code_block = "#AEC3D6"
+M.md_list = M.type
+M.md_hr = M.keyword
+M.md_delimiter = M.comment
+M.md_table = M.punctuation
 
 -- =============================================================================
--- 강조 색상 (Markdown, Special UI)
+-- 진단 — 데스크톱 시맨틱을 그대로 쓴다. warning만 error 아래 위계로 반 계단 조정.
 -- =============================================================================
--- Markdown H1, Important Text
-M.accent1 = "#E8717E" -- Soft Rose
--- Markdown H2, Links
-M.accent2 = "#E8C882" -- Warm Sand
--- Markdown H3, Code Blocks, Quotes
-M.accent3 = "#8ED8D8" -- Soft Teal
+M.error = "#E08A8A"    -- oma11 Muted Rose - 에러·삭제·FIX만
+M.warning = "#A89B6B"  -- oma13 Brass를 error 아래로
+M.info = "#94A3B8"     -- oma9 Slate (데스크톱 '정보'와 동일)
+M.hint = "#74828F"     -- 슬레이트 한 계단 아래 (플로트 배경에서도 ≥ 4.5)
 
 -- =============================================================================
--- 터미널 색상 (ANSI Colors)
+-- Git
+-- =============================================================================
+M.git_add = "#81C784"    -- oma14 Pale Emerald
+M.git_change = M.func
+M.git_delete = M.error
+
+-- =============================================================================
+-- 하위 호환 별칭
+-- accent1 = ui_accent(빛), accent2 = type, accent3 = property
+-- =============================================================================
+M.accent1 = M.ui_accent
+M.accent2 = M.type
+M.accent3 = M.property
+
+-- =============================================================================
+-- ANSI — ghostty 매핑과 1:1 (터미널 앱이 데스크톱과 같은 색을 보게)
 -- =============================================================================
 M.terminal = {
-  black = "#1E2030",    -- Night Shade
-  red = "#E8717E",      -- Soft Rose
-  green = "#8FD4A5",    -- Soft Mint
-  yellow = "#E8C882",   -- Warm Sand
-  blue = "#7BB8E0",     -- Soft Sky
-  magenta = "#C9A0DC",  -- Soft Lavender
-  cyan = "#8ED8D8",     -- Soft Teal
-  white = "#D0D6E0",    -- Cloud Gray
+  black = "#09090B",  -- oma0
+  red = "#E08A8A",    -- oma11
+  green = "#81C784",  -- oma14
+  yellow = "#D4C88C", -- oma13
+  blue = "#CBD5E1",   -- oma10
+  magenta = "#F4F4F5",-- oma8
+  cyan = "#94A3B8",   -- oma9
+  white = "#A1A1AA",  -- oma4
 
-  -- Bright Variants (더 밝은 파스텔)
-  bright_black = "#636E7B",   -- Slate Smoke
-  bright_red = "#E8717E",     -- Soft Rose
-  bright_green = "#8FD4A5",   -- Soft Mint
-  bright_yellow = "#E89B82",  -- Soft Coral
-  bright_blue = "#7BB8E0",    -- Soft Sky
-  bright_magenta = "#C9A0DC", -- Soft Lavender
-  bright_cyan = "#8ED8D8",    -- Soft Teal
-  bright_white = "#FFFFFF",   -- Starlight
+  bright_black = "#71717A",   -- oma3
+  bright_red = "#E08A8A",     -- oma11 (ghostty 패리티)
+  bright_green = "#81C784",   -- oma14
+  bright_yellow = "#D4C88C",  -- oma13
+  bright_blue = "#94A3B8",    -- oma9
+  bright_magenta = "#C4A6CF", -- oma15 (원본 Thistle)
+  bright_cyan = "#94A3B8",    -- oma9
+  bright_white = "#FFFFFF",   -- oma6 (터미널 한정)
 }
 
 return M

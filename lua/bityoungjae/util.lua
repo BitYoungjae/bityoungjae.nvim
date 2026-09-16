@@ -1,11 +1,12 @@
 ---@class MyThemeUtil
----@field bg string 기본 배경 색상 (Void)
----@field fg string 기본 전경 색상 (Platinum)
+---@field bg string 기본 배경 색상
+---@field fg string 기본 전경 색상
 local M = {}
 
--- 무명 기본 팔레트 기본값
-M.bg = "#09090B" -- Void
-M.fg = "#E4E4E7" -- Platinum
+-- palette.lua와 동기화 (순환 require 없음: palette는 util을 쓰지 않음)
+local palette = require("bityoungjae.palette")
+M.bg = palette.bg
+M.fg = palette.fg
 
 ---HEX 색상 코드를 RGB 테이블로 변환합니다.
 ---@param hex_str string HEX color string (e.g., "#E4E4E7")
@@ -27,6 +28,73 @@ local function hex_to_rgb(hex_str)
   }
 end
 
+local function channel_to_linear(c)
+  c = c / 255
+  if c <= 0.04045 then
+    return c / 12.92
+  end
+  return ((c + 0.055) / 1.055) ^ 2.4
+end
+
+---WCAG 2.x 상대 휘도 (0–1)
+---@param hex string
+---@return number
+function M.luminance(hex)
+  local rgb = hex_to_rgb(hex)
+  if not rgb then
+    return 0
+  end
+  return 0.2126 * channel_to_linear(rgb[1])
+    + 0.7152 * channel_to_linear(rgb[2])
+    + 0.0722 * channel_to_linear(rgb[3])
+end
+
+---두 HEX의 WCAG 대비비
+---@param a string
+---@param b string
+---@return number
+function M.contrast(a, b)
+  local l1, l2 = M.luminance(a), M.luminance(b)
+  local hi, lo = math.max(l1, l2), math.min(l1, l2)
+  return (hi + 0.05) / (lo + 0.05)
+end
+
+local function to_lab(hex_str)
+  local rgb = hex_to_rgb(hex_str)
+  if not rgb then
+    return nil
+  end
+  local r = channel_to_linear(rgb[1])
+  local g = channel_to_linear(rgb[2])
+  local b = channel_to_linear(rgb[3])
+  local x = (0.4124 * r + 0.3576 * g + 0.1805 * b) / 0.95047
+  local y = 0.2126 * r + 0.7152 * g + 0.0722 * b
+  local z = (0.0193 * r + 0.1192 * g + 0.9505 * b) / 1.08883
+
+  local function f(t)
+    if t > 0.008856 then
+      return t ^ (1 / 3)
+    end
+    return 7.787 * t + 16 / 116
+  end
+
+  local fx, fy, fz = f(x), f(y), f(z)
+  return 116 * fy - 16, 500 * (fx - fy), 200 * (fy - fz)
+end
+
+---두 HEX 색상의 CIE76 ΔE (색 구분성). 20 이상이면 확실히 구분됩니다.
+---@param a string
+---@param b string
+---@return number
+function M.delta_e(a, b)
+  local l1, a1, b1 = to_lab(a)
+  local l2, a2, b2 = to_lab(b)
+  if not (l1 and l2) then
+    return 0
+  end
+  return math.sqrt((l1 - l2) ^ 2 + (a1 - a2) ^ 2 + (b1 - b2) ^ 2)
+end
+
 ---RGB 값을 HEX 문자열로 변환합니다.
 ---@param r number Red (0-255)
 ---@param g number Green (0-255)
@@ -45,7 +113,12 @@ function M.blend(foreground, alpha, background)
   local bg_rgb = hex_to_rgb(background)
   local fg_rgb = hex_to_rgb(foreground)
 
-  -- "NONE"이거나 잘못된 색상이 입력된 경우 처리
+  -- transparent 모드처럼 배경이 "NONE"이면 기본 배경으로 계산해 틴트를 유지한다
+  if not bg_rgb then
+    bg_rgb = hex_to_rgb(M.bg)
+  end
+
+  -- 전경 색이 "NONE"이거나 잘못된 경우 처리
   if not bg_rgb or not fg_rgb then
     return "NONE"
   end
@@ -65,87 +138,6 @@ end
 ---@return string 어두워진 HEX 색상
 function M.darken(hex, amount, bg)
   return M.blend(hex, amount, bg or M.bg)
-end
-
----색상을 전경색(기본값: M.fg) 방향으로 혼합하여 밝게 만듭니다.
----@param hex string 대상 색상
----@param amount number 유지할 대상 색상의 비율 (0.0 - 1.0). 예: 0.8은 전경 20% 혼합
----@param fg? string 선택적 전경 색상 (기본값: M.fg)
----@return string 밝아진 HEX 색상
-function M.lighten(hex, amount, fg)
-  return M.blend(hex, amount, fg or M.fg)
-end
-
----색상을 반전시킵니다. (Light 테마 변환 등에 사용)
----@param hex string 대상 색상
----@return string 반전된 HEX 색상
-function M.invert(hex)
-  local rgb = hex_to_rgb(hex)
-  if not rgb then return "NONE" end
-  return rgb_to_hex(255 - rgb[1], 255 - rgb[2], 255 - rgb[3])
-end
-
--- HSL 헬퍼 함수들 (채도 조절 구현용)
-local function rgb_to_hsl(r, g, b)
-  r, g, b = r / 255, g / 255, b / 255
-  local max, min = math.max(r, g, b), math.min(r, g, b)
-  local h, s, l
-  l = (max + min) / 2
-
-  if max == min then
-    h, s = 0, 0     -- 무채색
-  else
-    local d = max - min
-    s = l > 0.5 and d / (2 - max - min) or d / (max + min)
-    if max == r then
-      h = (g - b) / d + (g < b and 6 or 0)
-    elseif max == g then
-      h = (b - r) / d + 2
-    else
-      h = (r - g) / d + 4
-    end
-    h = h / 6
-  end
-  return h, s, l
-end
-
-local function hsl_to_rgb(h, s, l)
-  local r, g, b
-
-  if s == 0 then
-    r, g, b = l, l, l
-  else
-    local function hue2rgb(p, q, t)
-      if t < 0 then t = t + 1 end
-      if t > 1 then t = t - 1 end
-      if t < 1 / 6 then return p + (q - p) * 6 * t end
-      if t < 1 / 2 then return q end
-      if t < 2 / 3 then return p + (q - p) * (2 / 3 - t) * 6 end
-      return p
-    end
-
-    local q = l < 0.5 and l * (1 + s) or l + s - l * s
-    local p = 2 * l - q
-    r = hue2rgb(p, q, h + 1 / 3)
-    g = hue2rgb(p, q, h)
-    b = hue2rgb(p, q, h - 1 / 3)
-  end
-  return r * 255, g * 255, b * 255
-end
-
----색상의 채도를 조절합니다.
----@param hex string 대상 색상
----@param amount number 채도에 곱할 값 (예: 1.2 = +20%, 0.5 = -50%)
----@return string 조절된 HEX 색상
-function M.saturate(hex, amount)
-  local rgb = hex_to_rgb(hex)
-  if not rgb then return "NONE" end
-
-  local h, s, l = rgb_to_hsl(rgb[1], rgb[2], rgb[3])
-  s = math.min(math.max(0, s * amount), 1)   -- 채도 조절 및 클램핑
-
-  local r, g, b = hsl_to_rgb(h, s, l)
-  return rgb_to_hex(r, g, b)
 end
 
 return M

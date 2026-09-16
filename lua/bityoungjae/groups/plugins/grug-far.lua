@@ -4,10 +4,10 @@ local M = {}
 function M.setup(hl, p)
   -- 도움말 섹션
   hl(0, "GrugFarHelpHeader", { fg = p.comment })
-  hl(0, "GrugFarHelpHeaderKey", { fg = p.accent3 })
+  hl(0, "GrugFarHelpHeaderKey", { fg = p.property })
 
   -- 입력 필드
-  hl(0, "GrugFarInputLabel", { fg = p.accent2 })
+  hl(0, "GrugFarInputLabel", { fg = p.func })
   hl(0, "GrugFarInputPlaceholder", { fg = p.fg_dark })
 
   -- 결과 섹션
@@ -15,7 +15,7 @@ function M.setup(hl, p)
   hl(0, "GrugFarResultsHeader", { fg = p.warning })
   hl(0, "GrugFarResultsLineColumn", { fg = p.fg_dark })
   hl(0, "GrugFarResultsLineNo", { fg = p.fg_dark })
-  hl(0, "GrugFarResultsMatch", { fg = p.bg, bg = p.error })
+  hl(0, "GrugFarResultsMatch", { fg = p.fg_light, bg = p.bg_search })
   hl(0, "GrugFarResultsStats", { fg = p.info })
 end
 
