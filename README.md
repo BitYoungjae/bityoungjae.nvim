@@ -1,17 +1,22 @@
 # BitYoungjae.nvim
 
-> **Mumyeong v3.0** - "Deep Void & Bioluminescent Neon" (심해 속의 형광)
+> **Mumyeong** — Neon Glass
 
 BitYoungjae가 개인적으로 사용하기 위해 만든 다크 Neovim 컬러스킴입니다.
 
-깊은 심해 배경과 부드러운 파스텔 톤의 하이라이트가 특징이며, Clojure, TypeScript, Markdown, JSON에 최적화되어 있습니다.
+아연 무채색 베이스 위에서 UI는 유리처럼 중립적으로 머물고, 코드 토큰만 형광으로 뜹니다. [omarchy-mumyeong-theme](https://github.com/bityoungjae/omarchy-mumyeong-theme)과 배경·선택·커서·진단 색을 공유해 한 시스템처럼 이어집니다. Clojure, TypeScript, Markdown, JSON에 맞춰 역할 색을 나눴습니다.
+
+![preview](extras/preview.png)
 
 ## 특징
 
-- 눈의 피로를 최소화하는 부드러운 파스텔 컬러
-- 깊은 심해 톤의 배경과 적절한 대비
-- 다양한 플러그인 지원 (21개 이상)
-- Lualine, Sublime Text 테마 포함
+- 본문 대비 약 9.7:1 (할로네이션 방지 밴드, APCA Lc ≈ -62)
+- 데스크톱 테마와 팔레트 앵커 공유 (bg·selection·cursor·error·git 색상 그대로)
+- 주석이 배경·커서라인·Visual 모두에서 읽힘
+- 에러 로즈는 진단·삭제·FIX에만 사용
+- 키워드는 색 + bold, 역할 간 ΔE 15+ 보장 (`tests/contrast.lua` 66개 검사)
+- `transparent`는 본문 배경에만 적용 (플로트·diff 틴트 유지)
+- Lualine 및 주요 플러그인 하이라이트 포함
 
 ## 요구사항
 
@@ -28,10 +33,15 @@ BitYoungjae가 개인적으로 사용하기 위해 만든 다크 Neovim 컬러�
   lazy = false,
   priority = 1000,
   config = function()
+    require("bityoungjae").setup({
+      italic_comments = true,
+    })
     vim.cmd([[colorscheme bityoungjae]])
   end,
 }
 ```
+
+`italic_comments`를 `false`로 두면 주석에서 이탤릭을 끕니다. `transparent`와 `terminal_colors`도 `setup()`으로 제어합니다.
 
 ### packer.nvim
 
@@ -57,13 +67,13 @@ colorscheme bityoungjae
 vim.cmd([[colorscheme bityoungjae]])
 ```
 
-### Lualine 설정
+### Lualine
 
 ```lua
-require('lualine').setup {
+require("lualine").setup {
   options = {
-    theme = 'bityoungjae'
-  }
+    theme = "bityoungjae",
+  },
 }
 ```
 
@@ -82,31 +92,42 @@ require('lualine').setup {
 
 ## 컬러 팔레트
 
-### 배경 (Background)
+자세한 역할 매핑은 [docs/colors.md](docs/colors.md)를 참고하세요.
 
-| 이름        | 색상코드  | 용도                |
-| ----------- | --------- | ------------------- |
-| Deep Void   | `#111117` | 메인 에디터 배경    |
-| Night Mist  | `#16171F` | Neo-tree 배경       |
-| Dark Panel  | `#1E2028` | 팝업, 자동완성      |
-| Slate Focus | `#2C3145` | 선택 영역           |
-| Steel Edge  | `#3B4261` | 테두리              |
+### 배경
 
-### 구문 (Syntax)
+| 이름        | 색상코드  | 용도                   |
+| ----------- | --------- | ---------------------- |
+| Void        | `#09090B` | 메인 에디터 (oma0)     |
+| Cursor Line | `#202024` | 현재 줄                |
+| Onyx        | `#18181B` | 사이드바, 팝업 (oma1)  |
+| Charcoal    | `#27272A` | 선택 영역 (oma2)       |
 
-| 이름          | 색상코드  | 용도                |
-| ------------- | --------- | ------------------- |
-| Frost White   | `#ECEFF4` | 기본 텍스트, 변수   |
-| Cloud Gray    | `#D0D6E0` | 파라미터            |
-| Slate Smoke   | `#636E7B` | 주석                |
-| Steel Gray    | `#8892A0` | 괄호, 구분자        |
-| Soft Mint     | `#8FD4A5` | 문자열              |
-| Soft Coral    | `#E89B82` | 숫자, 불리언        |
-| Soft Lavender | `#C9A0DC` | 키워드              |
-| Soft Sky      | `#7BB8E0` | 함수, 메서드        |
-| Warm Sand     | `#E8C882` | 타입, 클래스        |
-| Soft Rose     | `#E8717E` | 상수, 에러          |
-| Soft Teal     | `#8ED8D8` | 연산자, 속성        |
+### 구문
+
+| 이름        | 색상코드  | 용도                       |
+| ----------- | --------- | -------------------------- |
+| Frost       | `#B4B4BC` | 본문, 변수                 |
+| Glass Smoke | `#9BA3AF` | 주석                       |
+| Thistle     | `#C79FD6` | 키워드 (bold, oma15 계열)  |
+| Sky         | `#7DC4FF` | 함수, 주 형광              |
+| Emerald     | `#82D9A4` | 문자열 (oma14 계열)        |
+| Brass       | `#F0D48A` | 타입 (oma13 계열)          |
+| Sand        | `#EDA87C` | 숫자 (oma12 계열)          |
+| Muted Gold  | `#CBAF8F` | 상수                       |
+| Teal        | `#74C0BE` | 속성, JSON 키              |
+| Steel       | `#8593A3` | 연산자                     |
+| Muted Rose  | `#E08A8A` | 에러, 삭제 (oma11)         |
+
+## 개발
+
+팔레트나 하이라이트를 바꾼 뒤에는 회귀 테스트를 돌립니다. 본문 대비 밴드, 주석 하한, 역할 간 ΔE, omarchy 앵커 일치를 검사합니다.
+
+```bash
+nvim --headless -u tests/minimal_init.lua -c "luafile tests/contrast.lua" -c "qa!"
+```
+
+설치 환경과 핵심 대비는 `:checkhealth bityoungjae`로 확인할 수 있습니다. 새 플러그인 지원은 `lua/bityoungjae/groups/plugins/`에 파일만 추가하면 자동으로 로드됩니다.
 
 ## 라이선스
 

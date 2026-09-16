@@ -1,108 +1,107 @@
-# Mumyeong.nvim - Color Reference v3.0
+# Mumyeong.nvim - Color Reference
 
-## "Deep Void & Bioluminescent Neon"
+## Neon Glass
 
-**Mumyeong (무명) v3.0**은 기존의 파스텔 톤이 주는 흐릿함과 낮은 가독성을 완전히 개선했습니다.
-빛이 닿지 않는 **심해(Abyss)**의 절대적인 어둠 속에서, 스스로 빛을 내는 생명체의 **형광(Neon)** 색감을 차용하여 **극한의 가독성**과 **심미적 쾌감**을 동시에 제공합니다.
+Mumyeong (무명)은 omarchy-mumyeong-theme("**Neutral Void, 무채색의 공허**")와 같은 결로 설계되었습니다.
+배경·패널·선택·커서·진단은 데스크톱의 아연 시스템을 그대로 입고(유리처럼 중립), **코드 토큰만 형광 채도**를 유지합니다 — 벽지 대신 코드가 주인공.
 
----
-
-## 1. Base Palette: The Abyss (심연)
-
-배경은 완전한 검정이 아니라, 미세한 남색 틴트를 가진 **Deep Void** 톤을 사용합니다. 이는 눈의 피로를 줄이면서도 코드를 선명하게 만듭니다.
-
-| Variable       | Color Name      | Hex       | Role                                                    |
-| :------------- | :-------------- | :-------- | :------------------------------------------------------ |
-| **bg**         | **Deep Void**   | `#111117` | 메인 에디터 배경. 미세한 남색 틴트로 부드러운 어둠.     |
-| **bg_light**   | **Night Mist**  | `#16171F` | Neo-tree 사이드바. 본문보다 약간 밝은 톤.              |
-| **bg_dark**    | **Dark Panel**  | `#1E2028` | 팝업 창, 플로팅 윈도우.                                |
-| **selection**  | **Slate Focus** | `#2C3145` | 선택 영역(Visual), 커서 라인.                          |
-| **border**     | **Steel Edge**  | `#3B4261` | 창의 경계. 유리처럼 반투명한 느낌.                     |
-| **fg**         | **Frost White** | `#ECEFF4` | 기본 텍스트. 일반 변수, 본문.                          |
-| **fg_dark**    | **Slate Smoke** | `#636E7B` | 주석. 푸른 기가 도는 회색으로 세련미 확보.             |
-| **fg_light**   | **Starlight**   | `#FFFFFF` | **강조**. 커서 및 하이라이트.                          |
-| **parameter**  | **Cloud Gray**  | `#D0D6E0` | 함수 파라미터. fg보다 약간 어두운 톤.                  |
-| **punctuation**| **Steel Gray**  | `#8892A0` | 괄호, 구분자. 시각적 노이즈 최소화.                    |
+- 본문 `#B4B4BC` ≈ 9.7:1 (할로네이션 방지 밴드, APCA Lc ≈ -62)
+- 주석은 배경·CursorLine·Visual 모두에서 ≥ 4.5
+- 경보용 로즈(`#E08A8A`)는 에러·삭제·FIX에만 사용
+- `oma*` 표기는 데스크톱 팔레트(colors.toml) 앵커
 
 ---
 
-## 2. Syntax Highlights: Bioluminescent Neon (생체 발광)
+## 1. Base: 아연 유리 (Carbon Layers)
 
-강렬한 네온 대신, 심해 생명체처럼 **부드럽게 빛나는 저채도 파스텔** 컬러를 사용합니다. 눈의 피로를 줄이면서도 충분한 가독성을 제공합니다.
+| Variable       | Hex       | Anchor  | Role                                   |
+| :------------- | :-------- | :------ | :------------------------------------- |
+| **bg**         | `#09090B` | oma0    | 메인 에디터 (Void)                     |
+| **bg_light**   | `#18181B` | oma1    | 사이드바 (ghostty 배경과 동일)          |
+| **bg_dark**    | `#18181B` | oma1    | 팝업, 플로트, 상태줄                    |
+| **cursor_line**| `#202024` | -       | 커서 라인 (배경 대비 ~1.23:1)           |
+| **selection**  | `#27272A` | oma2    | Visual (데스크톱 선택색과 동일)         |
+| **border**     | `#4E4E57` | -       | 창 경계·유리 단면                       |
+| **line_nr**    | `#62626C` | -       | 비활성 줄 번호 (≥ 3.2:1)                |
+| **line_nr_cur**| `#E4E4E7` | oma5    | 활성 줄 번호 (`#FFFFFF` 아님)           |
+| **whitespace** | `#303039` | -       | 리스트 문자 (줄 번호보다 한 계단 어둡게) |
+| **ghost**      | `#585862` | -       | blink.cmp 고스트 텍스트                 |
 
-| Syntax Group  | Color Name        | Hex       | Usage Example                                               |
-| :------------ | :---------------- | :-------- | :---------------------------------------------------------- |
-| **String**    | **Soft Mint**     | `#8FD4A5` | 문자열 리터럴. 차분한 민트 그린.                            |
-| **Number**    | **Soft Coral**    | `#E89B82` | 숫자, 불리언. 따뜻한 코랄 톤.                               |
-| **Keyword**   | **Soft Lavender** | `#C9A0DC` | `if`, `return`, `import`. 부드러운 라벤더.                  |
-| **Function**  | **Soft Sky**      | `#7BB8E0` | 함수 및 메서드. 하늘색 톤.                                  |
-| **Type**      | **Warm Sand**     | `#E8C882` | 클래스, 인터페이스. 따뜻한 샌드 컬러.                       |
-| **Constant**  | **Soft Rose**     | `#E8717E` | `const`, 매크로. 부드러운 로즈 핑크.                        |
-| **Operator**  | **Soft Teal**     | `#8ED8D8` | 연산자 (`+`, `-`, `=`). 청록색 톤.                          |
-| **Property**  | **Soft Teal**     | `#8ED8D8` | 객체 속성, 이스케이프 문자. 동일한 청록색.                  |
+## 2. 본문: 무명 (Frost Mist)
 
----
+| Variable       | Hex       | Anchor | Role                                    |
+| :------------- | :-------- | :----- | :-------------------------------------- |
+| **fg**         | `#B4B4BC` | -      | 본문, 변수 (oma4를 본문용으로 반 계단 밝게) |
+| **comment**    | `#9BA3AF` | -      | 주석 (슬레이트 기운의 유리빛)            |
+| **parameter**  | `#A1A1AA` | oma4   | 파라미터 (본문보다 반 계단 아래 — 의도된 근접) |
+| **fg_light**   | `#E4E4E7` | oma5   | 드문 강조                                |
+| **cursor**     | `#F4F4F5` | oma8   | 커서·UI 액센트 — 색이 아니라 빛 (Ghost Silver) |
+| **ui_accent**  | `#F4F4F5` | oma8   | 타이틀, 디렉터리, 매치 캐럿              |
 
-## 3. Language Optimizations
+## 3. Syntax: 소수 형광
 
-### λ Clojure (Lisp)
-- **Parentheses (`#8892A0`)**: 괄호를 Steel Gray로 처리하여 시각적 노이즈를 최소화했습니다. 코드가 공중에 떠 있는 듯한 느낌을 줍니다.
-- **Keyword (`#C9A0DC`)**: 부드러운 라벤더로 함수형 흐름의 핵심을 강조합니다.
-- **Property (`:keyword`)**: Soft Teal(`#8ED8D8`)로 Clojure 스타일 키워드를 구분합니다.
+hue는 데스크톱 시맨틱에서 왔고, 채도는 편집기용으로 반 계단 올렸습니다.
 
-### 📘 TypeScript / JavaScript
-- **Type Distinction**: `Interface`는 **Warm Sand**(`#E8C882`), `Function`은 **Soft Sky**(`#7BB8E0`)로 구분하여 "데이터 구조"와 "로직"을 색상 온도로 분리(Warm vs Cool)했습니다.
-- **Object Keys**: 일반 변수(Frost White)와 다르게 **Soft Teal**(`#8ED8D8`)을 적용하여 JSON 객체 가독성을 높였습니다.
-- **Parameters**: Cloud Gray(`#D0D6E0`)로 함수 파라미터를 일반 변수와 구분합니다.
+| Group         | Hex       | Notes                                        |
+| :------------ | :-------- | :------------------------------------------- |
+| **Function**  | `#7DC4FF` | 하늘 형광 (oma9 슬레이트의 채도를 되살린 주 신호) |
+| **String**    | `#82D9A4` | 에메랄드 (oma14 형제)                         |
+| **Type**      | `#F0D48A` | 브라스 상향 (oma13 hue)                       |
+| **Number**    | `#EDA87C` | oma12 Sand를 반 계단 밝게                     |
+| **Constant**  | `#CBAF8F` | 뮤트 골드. **에러가 아님**                    |
+| **Keyword**   | `#C79FD6` | oma15 Thistle 상향, **bold**                  |
+| **Property**  | `#74C0BE` | JSON 키, 멤버. 청록                           |
+| **Macro**     | `#A18CE0` | 바이올렛 (키워드 염주와 ΔE 19+)               |
+| **Special**   | `#52CCE8` | 시안. 이스케이프, builtin (속성 청록과 ΔE 18+) |
+| **Operator**  | `#8593A3` | 후퇴하는 스틸                                 |
+| **Punctuation**| `#7E8695`| 괄호, 구분자                                  |
 
-### 📝 Markdown
-- **Headings**: Soft Rose(`#E8717E`), Warm Sand(`#E8C882`), Soft Mint(`#8FD4A5`) 등 **주목도 순서**로 배치했습니다.
-- **Strong/Bold**: Starlight(`#FFFFFF`)와 Bold 처리로 본문(Frost White)보다 더 튀어나와 보입니다.
+## 4. Language
 
----
+### Clojure
+괄호는 전역 punctuation보다 어두운 `#6B6B75`입니다 (의도된 디머). 괄호 지옥을 시각적으로 낮춥니다.
 
-## 4. UI Elements
+### TypeScript
+타입(브라스 상향)과 함수(하늘)를 색온도로 나눕니다. 파라미터는 본문과 거의 같습니다(의도). Boolean은 뮤트 골드입니다.
 
-- **Cursor Line**: 현재 줄의 배경색을 Slate Focus(`#2C3145`)로 부드럽게 강조하되, **줄 번호(Line Nr)**를 Starlight(`#FFFFFF`)로 밝혀 위치를 알립니다.
-- **Selection**: Visual 모드 선택 영역도 동일한 Slate Focus(`#2C3145`) 배경을 사용합니다.
-- **Border**: 창 경계선은 Steel Edge(`#3B4261`)로 처리하여 유리처럼 반투명한 느낌을 줍니다.
+### JSON
+키는 `property` 청록, 콜론 계열은 `operator` 스틸.
 
-### Diagnostics
-- **Error**: `#E8717E` (Soft Rose) - 부드러우면서도 명확한 에러 표시.
-- **Warning**: `#E8C882` (Warm Sand) - 따뜻한 톤의 경고.
-- **Info**: `#7BB8E0` (Soft Sky) - 정보성 메시지.
-- **Hint**: `#8ED8D8` (Soft Teal) - 힌트 및 제안.
-
-### Git Signs
-- **Git Add**: `#8FD4A5` (Soft Mint) - 새로 추가된 라인.
-- **Git Change**: `#7BB8E0` (Soft Sky) - 수정된 라인.
-- **Git Delete**: `#E8717E` (Soft Rose) - 삭제된 라인.
-
----
-
-## 5. Terminal Colors (ANSI)
-
-터미널에서도 Mumyeong v3.0의 부드러운 생체 발광 느낌을 유지합니다.
-
-| Color       | Normal               | Bright                   |
-| :---------- | :------------------- | :----------------------- |
-| **Black**   | `#1E2028` (Dark)     | `#636E7B` (Slate Smoke)  |
-| **Red**     | `#E8717E` (Soft Rose)| `#FF6B81` (Bright Rose)  |
-| **Green**   | `#8FD4A5` (Soft Mint)| `#A0E5B5` (Bright Mint)  |
-| **Yellow**  | `#E8C882` (Warm Sand)| `#FFD89A` (Bright Sand)  |
-| **Blue**    | `#7BB8E0` (Soft Sky) | `#8FCAED` (Bright Sky)   |
-| **Magenta** | `#C9A0DC` (Lavender) | `#D9B0EC` (Bright Lav)   |
-| **Cyan**    | `#8ED8D8` (Soft Teal)| `#A0E8E8` (Bright Teal)  |
-| **White**   | `#D0D6E0` (Cloud)    | `#FFFFFF` (Starlight)    |
+### Markdown
+H1–H6는 같은 하늘 hue에서 밝기만 내려갑니다.
+`#7DC4FF` → `#74B9F3` → `#6CAEE8` → `#65A3DC` → `#6198D0` → `#5D8FC4`
+인라인 코드는 oma10(`#CBD5E1`, 데스크톱 '코드 블록'과 동일) 금속성.
 
 ---
 
-## 6. Color Philosophy
+## 5. UI & Diagnostics
 
-Mumyeong v3.0 "Deep Void & Bioluminescent Neon"은 다음 원칙을 따릅니다:
+- **Error** `#E08A8A` (oma11): 에러·삭제·FIX만. 경고보다 채도·대비 위계 상위.
+- **Warning** `#A89B6B`: oma13 Brass를 error 아래로 반 계단 조정한 값. (oma13 원본 `#D4C88C`는 terminal yellow로 사용)
+- **Info** `#94A3B8` (oma9): 데스크톱 '정보'와 동일. func과 hue를 공유하지 않음 (ΔE 26).
+- **Hint** `#74828F`: 슬레이트 한 계단 아래 (플로트 배경에서도 ≥ 4.5).
+- **Git**: Add `#81C784`(oma14) · Change = func · Delete = error.
+- **검색**: `#2E3A4A` 슬레이트 틴트 / 증분 검색 `#2D3B33` 에메랄드 틴트. 반전하지 않습니다.
+- **snacks picker**: ignored·hidden 항목은 snacks 기본값(NonText 링크) 대신 주석 톤(`#9BA3AF`, 패널 위 6.4:1)으로 — 무시됨 위계는 유지하되 읽힙니다.
+- **blink.cmp 고스트 텍스트**: `#585862` (확정 입력이 아님을 밝기로 표현). nvim 기본 `ComplHint`도 같은 톤으로 재정의 — 런타임 기본 링크(→NonText)가 극도 디밍을 상속하지 않게.
 
-1. **눈의 피로 최소화**: 강렬한 네온 대신 저채도 파스텔 톤으로 장시간 코딩에 적합합니다.
-2. **충분한 대비**: 배경과 텍스트 간 충분한 명도 차이로 가독성을 확보합니다.
-3. **일관된 색상 온도**: Warm 톤(Type, Number)과 Cool 톤(Function, String)을 구분하여 직관적인 코드 이해를 돕습니다.
-4. **시각적 계층**: 중요도에 따라 색상 밝기를 조정하여 자연스러운 시선 유도를 제공합니다.
-5. **심미적 조화**: 모든 색상이 Deep Void 배경 위에서 조화롭게 빛나도록 설계되었습니다.
+## 6. Terminal (ANSI) — ghostty 매핑 1:1
+
+터미널 앱이 데스크톱 ghostty와 같은 색을 보도록 매핑을 공유합니다.
+
+| Color  | Normal    | Bright    |     | Color   | Normal    | Bright    |
+| :----- | :-------- | :-------- | --- | :------ | :-------- | :-------- |
+| Black  | `#09090B` | `#71717A` |     | Blue    | `#CBD5E1` | `#94A3B8` |
+| Red    | `#E08A8A` | `#E08A8A` |     | Magenta | `#F4F4F5` | `#C4A6CF` |
+| Green  | `#81C784` | `#81C784` |     | Cyan    | `#94A3B8` | `#94A3B8` |
+| Yellow | `#D4C88C` | `#D4C88C` |     | White   | `#A1A1AA` | `#FFFFFF` |
+
+## 7. Principles
+
+1. 본문 대비는 7–11:1. 15:1 이상은 피한다.
+2. 주석과 Visual 안 주석은 4.5:1 이상.
+3. UI(타이틀·디렉터리·커서)는 색이 아니라 빛(Ghost Silver)으로 강조한다.
+4. 빨강은 주의 신호로 격리한다. 진단 위계는 error > warning.
+5. 키워드는 색에만 의존하지 않고 bold를 쓴다.
+6. 역할이 다른 구문 색은 CIE ΔE 15 이상 유지한다 (`tests/contrast.lua`가 검증).
+7. 의도된 근접은 문서로 남긴다: parameter ≈ 본문, string ≈ git add(같은 에메랄드 가족), comment ≈ operator(소음 밴드), Clojure 괄호·whitespace(디밍).

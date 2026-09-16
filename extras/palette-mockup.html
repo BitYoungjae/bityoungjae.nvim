@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Mumyeong 팔레트 목업 — 4안 비교</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #0B0B0D; color: #C9C9CE;
+    font-family: "Pretendard", "Spoqa Han Sans Neo", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  }
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(11,11,13,.92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid #232327; padding: 14px 22px;
+  }
+  h1 { font-size: 17px; margin: 0 0 2px; letter-spacing: .2px; }
+  .sub { font-size: 12.5px; color: #8B8B93; margin-bottom: 10px; }
+  .pbtn {
+    font: inherit; font-size: 13px; cursor: pointer; margin-right: 8px;
+    padding: 7px 14px; border-radius: 8px; border: 1px solid #2C2C31;
+    background: #151518; color: #B9B9C0;
+  }
+  .pbtn.on { background: #E8E8EC; color: #0B0B0D; border-color: #E8E8EC; font-weight: 600; }
+  main { padding: 22px; }
+
+  /* ── 변형 팔레트 ─────────────────────────────── */
+  /* A. Neutral Void — 현행. 데스크톱 최대 정합, 가장 차분 */
+  .stage[data-p="a"] {
+    --bg:#09090B; --cl:#202024; --panel:#18181B; --sel:#27272A; --border:#3F3F46;
+    --lnr:#62626C; --lncur:#E4E4E7; --ws:#303039;
+    --fg:#B4B4BC; --cmt:#94949C; --fgl:#E4E4E7; --par:#A1A1AA;
+    --kw:#CBADD6; --fn:#9CC3EE; --str:#8FD49B; --typ:#E5CE8F; --num:#D9A67E; --cst:#D9A67E;
+    --prop:#6AB4A9; --mac:#9D8BC9; --spc:#85CDDC; --op:#82828C; --pun:#7A7A84; --cpar:#6B6B75;
+    --err:#E08A8A; --warn:#A89B6B; --info:#94A3B8; --hint:#6D7B89; --add:#81C784;
+    --cursor:#F4F4F5; --ui:#F4F4F5; --search:#2B333F;
+    --mdh:#A6C9F2; --mdh6:#6A95C4; --mdcode:#CBD5E1; --mdemph:#D9A67E;
+  }
+  /* B. Bioluminescent — 이전 v3. 청색 틴트 + 네온, 생동감 최대 */
+  .stage[data-p="b"] {
+    --bg:#111117; --cl:#262831; --panel:#323540; --sel:#2D3348; --border:#464C63;
+    --lnr:#697081; --lncur:#D4D8DE; --ws:#3A3D49;
+    --fg:#BFC4CD; --cmt:#9FABB7; --fgl:#D4D8DE; --par:#AEB5BF;
+    --kw:#B793C9; --fn:#79CFFF; --str:#7CCD93; --typ:#EBCF7A; --num:#EB9479; --cst:#CBAF8F;
+    --prop:#70BAB5; --mac:#978BEB; --spc:#47C7E8; --op:#809AA7; --pun:#858D97; --cpar:#737982;
+    --err:#FC7981; --warn:#BF934A; --info:#79CFFF; --hint:#6E8D8E; --add:#7CCD93;
+    --cursor:#69D6AA; --ui:#79CFFF; --search:#2E4658;
+    --mdh:#88D5FF; --mdh6:#4895C1; --mdcode:#7CCD93; --mdemph:#EEAC8B;
+  }
+  /* C. Neon Glass — 제안. UI·배경은 데스크톱(아연+빛), 코드만 v3 네온 */
+  .stage[data-p="c"] {
+    --bg:#09090B; --cl:#202024; --panel:#18181B; --sel:#27272A; --border:#3F3F46;
+    --lnr:#62626C; --lncur:#E4E4E7; --ws:#303039;
+    --fg:#B4B4BC; --cmt:#9BA3AF; --fgl:#E4E4E7; --par:#A1A1AA;
+    --kw:#C79FD6; --fn:#7DC4FF; --str:#82D9A4; --typ:#F0D48A; --num:#EDA87C; --cst:#CBAF8F;
+    --prop:#74C0BE; --mac:#A18CE0; --spc:#52CCE8; --op:#8593A3; --pun:#7E8695; --cpar:#767B87;
+    --err:#E08A8A; --warn:#A89B6B; --info:#94A3B8; --hint:#6D7B89; --add:#81C784;
+    --cursor:#F4F4F5; --ui:#F4F4F5; --search:#2E3A4A;
+    --mdh:#7DC4FF; --mdh6:#5D8FC4; --mdcode:#CBD5E1; --mdemph:#EDA87C;
+  }
+  /* D. Soft Glow — 절충. 아연 베이스 + 반 단계 들어온 파스텔 */
+  .stage[data-p="d"] {
+    --bg:#09090B; --cl:#202024; --panel:#18181B; --sel:#27272A; --border:#3F3F46;
+    --lnr:#62626C; --lncur:#E4E4E7; --ws:#303039;
+    --fg:#B4B4BC; --cmt:#999AA3; --fgl:#E4E4E7; --par:#A1A1AA;
+    --kw:#CFAEDC; --fn:#8FC7F7; --str:#8ADB9F; --typ:#EFD48E; --num:#E2A97E; --cst:#E2A97E;
+    --prop:#74C4BB; --mac:#A795D6; --spc:#8FD2E4; --op:#87878F; --pun:#7E7E88; --cpar:#71717C;
+    --err:#E08A8A; --warn:#A89B6B; --info:#94A3B8; --hint:#6D7B89; --add:#81C784;
+    --cursor:#F4F4F5; --ui:#F4F4F5; --search:#2E3644;
+    --mdh:#8FC7F7; --mdh6:#6E93BF; --mdcode:#C3D2E2; --mdemph:#E2A97E;
+  }
+
+  /* ── 스테이지 레이아웃 ─────────────────────── */
+  #grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 1400px) { #grid { grid-template-columns: 1fr; } }
+  .stage { border: 1px solid #232327; border-radius: 12px; overflow: hidden; background: #101012; }
+  .meta { padding: 12px 16px 10px; border-bottom: 1px solid #1E1E22; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
+  .meta .name { font-weight: 700; font-size: 14.5px; color: #E8E8EC; }
+  .meta .desc { font-size: 12px; color: #8B8B93; }
+  .meta .tag { font-size: 11px; padding: 2px 8px; border-radius: 20px; border: 1px solid #33333a; color:#A8A8B0; }
+  .tag.rec { border-color: #7DC4FF; color: #7DC4FF; }
+  .cols { display: flex; gap: 0; align-items: stretch; }
+  .editor { flex: 1 1 auto; min-width: 0; background: var(--bg); padding: 14px 0 16px;
+            font-family: "JetBrains Mono","SFMono-Regular",Menlo,Consolas,"D2Coding",monospace;
+            font-size: 13px; line-height: 1.62; }
+  .row { display: flex; white-space: pre; }
+  .gut { flex: 0 0 44px; text-align: right; padding-right: 14px; color: var(--lnr); user-select: none; }
+  .code { flex: 1; padding-right: 18px; overflow: hidden; }
+  .row.cl { background: var(--cl); }
+  .row.cl .gut { color: var(--lncur); font-weight: 700; }
+  .cmt{color:var(--cmt)} .kw{color:var(--kw);font-weight:700} .fn{color:var(--fn)}
+  .str{color:var(--str)} .num{color:var(--num)} .cst{color:var(--cst)}
+  .prop{color:var(--prop)} .mac{color:var(--mac)} .spc{color:var(--spc)}
+  .typ{color:var(--typ)} .op{color:var(--op)} .pun{color:var(--pun)} .cpar{color:var(--cpar)}
+  .par{color:var(--par)} .err{color:var(--err)} .warn{color:var(--warn)}
+  .sec { margin-top: 10px; padding-top: 8px; border-top: 1px dashed color-mix(in srgb, var(--cmt) 30%, transparent); }
+  .search { background: var(--search); color: var(--fgl); border-radius: 2px; }
+  .sel { background: var(--sel); }
+  .cursor { display:inline-block; width:7.4px; height:1.15em; vertical-align:text-bottom;
+            background: var(--cursor); border-radius:1px; }
+  .vt { font-size: 11.5px; margin-left: 14px; border-radius: 3px; padding: 0 5px; }
+  .vt.e { color: var(--err); background: color-mix(in srgb, var(--err) 12%, var(--bg)); }
+  .vt.w { color: var(--warn); background: color-mix(in srgb, var(--warn) 12%, var(--bg)); }
+  .vt.i { color: var(--info); background: color-mix(in srgb, var(--info) 12%, var(--bg)); }
+  .vt.h { color: var(--hint); background: color-mix(in srgb, var(--hint) 12%, var(--bg)); }
+  .da { background: color-mix(in srgb, var(--add) 14%, var(--bg)); }
+  .dd { background: color-mix(in srgb, var(--err) 12%, var(--bg)); }
+  .dc { background: color-mix(in srgb, var(--fn) 14%, var(--bg)); }
+  .da .sign{color:var(--add)} .dd .sign{color:var(--err)} .dc .sign{color:var(--fn)}
+  .mdh { color: var(--mdh); font-weight: 700; }
+  .mdh6 { color: var(--mdh6); font-weight: 700; }
+  .mdcode { color: var(--mdcode); background: var(--panel); border-radius: 3px; padding: 0 4px; }
+  .mdemph { color: var(--mdemph); font-weight: 700; }
+  .mdemph2 { color: var(--mdemph); font-style: italic; }
+  .mdlink { color: var(--fn); text-decoration: underline; }
+  .mdbullet { color: var(--typ); }
+  .sw { flex: 0 0 208px; border-left: 1px solid #1E1E22; padding: 12px 14px;
+        font-size: 11px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px;
+        align-content: start; background:#101012; }
+  .sw h4 { grid-column: 1 / -1; margin: 6px 0 0; font-size: 10.5px; color: #77777E;
+           text-transform: uppercase; letter-spacing: .6px; }
+  .chip { display: flex; align-items: center; gap: 6px; color: #A8A8B0; }
+  .chip i { width: 13px; height: 13px; border-radius: 3px; border: 1px solid rgba(255,255,255,.12); }
+  .chip b { font-weight: 500; color: #C9C9CE; }
+  .chip .oma { font-size: 8.5px; color: #6E6E76; border: 1px solid #2C2C31; border-radius: 8px; padding: 0 4px; }
+
+  /* 팝업 메뉴 */
+  .pmenu { margin: 12px 18px 0; border: 1px solid var(--border); border-radius: 8px;
+           background: var(--panel); width: 330px; font-size: 12.5px; overflow: hidden; }
+  .pitem { display: flex; gap: 9px; padding: 4px 10px; align-items: center; }
+  .pitem.on { background: var(--sel); }
+  .pkind { color: var(--ui); font-weight: 700; width: 12px; }
+  .plabel { color: var(--fg); }
+  .pextra { margin-left: auto; color: var(--cmt); font-size: 11px; }
+  .ptitle { padding: 4px 10px; color: var(--ui); font-weight: 700; font-size: 11.5px;
+            border-bottom: 1px solid var(--border); }
+
+  /* 상태줄 */
+  .sline { display: flex; margin-top: 14px; font-size: 11.5px; font-family: inherit; }
+  .sline .seg { padding: 3px 10px; }
+  .mode { background: var(--fn); color: var(--bg); font-weight: 700; }
+  .sbranch { background: var(--sel); color: var(--fn); }
+  .sfile { background: var(--panel); color: var(--fg); }
+  .sdiag { margin-left: auto; background: var(--panel); color: var(--cmt); display:flex; gap:10px; }
+  .sdiag .e{color:var(--err)} .sdiag .w{color:var(--warn)} .sdiag .ok{color:var(--add)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Mumyeong 팔레트 목업 — 4안 비교</h1>
+  <div class="sub">같은 코드 화면을 네 가지 결로 렌더링했습니다. 버튼으로 단일 보기, 목업 안의 요소: 커서라인 · 선택 · 검색 · 진단 가상텍스트 · diff · 팝업 · 상태줄 · 마크다운</div>
+  <div>
+    <button class="pbtn" data-p="a">A · Neutral Void <span style="opacity:.6">(현행)</span></button>
+    <button class="pbtn" data-p="b">B · Bioluminescent <span style="opacity:.6">(이전 v3)</span></button>
+    <button class="pbtn" data-p="c">C · Neon Glass <span style="opacity:.6">(제안)</span></button>
+    <button class="pbtn" data-p="d">D · Soft Glow <span style="opacity:.6">(절충)</span></button>
+    <button class="pbtn on" data-p="all">전체 비교</button>
+  </div>
+</header>
+
+<main id="grid">
+<!-- ═══════════════ STAGE 템플릿 × 4 ═══════════════ -->
+<section class="stage" data-p="a">
+  <div class="meta">
+    <span class="name">A · Neutral Void</span>
+    <span class="tag">현행</span>
+    <span class="desc">데스크톱 oma 앵커 1:1. 가장 차분하고 유리에 가까움 — 채도가 인상에 손을 뺐다는 말이 나온 안</span>
+  </div>
+  <div class="cols"><div class="editor">
+    <div class="row"><span class="gut">1</span><span class="code"><span class="cmt">;; Mumyeong — 무명: 이름 없는 본문 위에 소수 역할만 뜬다</span></span></div>
+    <div class="row"><span class="gut">2</span><span class="code"><span class="cpar">(</span><span class="kw">ns</span> <span class="typ">mumyeong.void</span></span></div>
+    <div class="row"><span class="gut">3</span><span class="code">  <span class="cpar">(</span><span class="pun">:</span><span class="kw">require</span> <span class="cpar">[</span><span class="prop">clojure.string</span> <span class="pun">:</span><span class="kw">as</span> <span class="spc">str</span><span class="cpar">]</span><span class="cpar">)</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">4</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">5</span><span class="code"><span class="cpar">(</span><span class="kw">def</span> <span class="mac">^:private</span> <span class="cst">DEEP-VOID</span> <span class="num">0.09</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">6</span><span class="code"><span class="cpar">(</span><span class="kw">def</span> <span class="cst">SIGNAL-BOOST</span> <span class="num">2.4</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">7</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">8</span><span class="code"><span class="cpar">(</span><span class="kw">defn</span> <span class="fn">photophore</span> <span class="str">"발광점을 밝힌다"</span></span></div>
+    <div class="row cl"><span class="gut">9</span><span class="code">  <span class="cpar">[</span><span class="pun">{</span><span class="prop">:keys</span> <span class="cpar">[</span><span class="par">lum</span><span class="cpar">]</span><span class="pun">}</span><span class="cpar">]</span>  <span class="cmt">; lum은 본문보다 반 계단 아래</span><span class="cursor"></span></span></div>
+    <div class="row"><span class="gut">10</span><span class="code">  <span class="cpar">(</span><span class="kw">let</span> <span class="cpar">[</span><span class="par">glow</span> <span class="cpar">(</span><span class="op">*</span> <span class="par">lum</span> <span class="cst">DEEP-VOID</span> <span class="num">2.4</span><span class="cpar">)</span><span class="cpar">]</span></span></div>
+    <div class="row"><span class="gut">11</span><span class="code">    <span class="cpar">(</span><span class="kw">if</span> <span class="cpar">(</span><span class="op">&gt;</span> <span class="par">glow</span> <span class="num">4.5</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">12</span><span class="code">      <span class="cpar">(</span><span class="fn">signal/rise</span> <span class="sel"><span class="cpar">(</span><span class="fn">signal/rise</span> <span class="str">:quiet</span></span><span class="search"> glow</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">13</span><span class="code">      <span class="cpar">(</span><span class="fn">signal/recede</span> <span class="str">:nameless</span> <span class="par">glow</span><span class="cpar">)</span><span class="cpar">)</span><span class="cpar">)</span><span class="vt e">E undefined variable recede</span></span></div>
+    <div class="row"><span class="gut">14</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">15</span><span class="code"><span class="cmt">;; ── TypeScript ──────────────────────────</span></span></div>
+    <div class="row"><span class="gut">16</span><span class="code"><span class="kw">export interface</span> <span class="typ">Photophore</span> <span class="pun">{</span></span></div>
+    <div class="row"><span class="gut">17</span><span class="code">  <span class="prop">depth</span><span class="pun">:</span> <span class="typ">number</span><span class="pun">;</span>  <span class="prop">mutable</span><span class="pun">?:</span> <span class="typ">boolean</span><span class="pun">;</span></span></div>
+    <div class="row"><span class="gut">18</span><span class="code"><span class="pun">}</span></span></div>
+    <div class="row"><span class="gut">19</span><span class="code"><span class="kw">const</span> <span class="par">boost</span> <span class="op">=</span> <span class="cst">SIGNAL-BOOST</span> <span class="op">*</span> <span class="num">2</span><span class="pun">;</span><span class="vt w">W deprecated since v3</span></span></div>
+    <div class="row"><span class="gut">20</span><span class="code"><span class="kw">return</span> <span class="pun">{</span> <span class="prop">depth</span><span class="pun">,</span> <span class="prop">mutable</span><span class="pun">:</span> <span class="cst">false</span> <span class="pun">}</span><span class="pun">;</span><span class="vt h">H 매개변수 순서 확인</span></span></div>
+    <div class="row"><span class="gut">21</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">22</span><span class="code"><span class="da"><span class="sign">+ </span><span class="cpar">(</span><span class="fn">signal/rise</span> <span class="str">:quiet</span> <span class="num">0.7</span><span class="cpar">)</span></span></span></div>
+    <div class="row"><span class="gut">23</span><span class="code"><span class="dd"><span class="sign">- </span><span class="cpar">(</span><span class="fn">signal/rise</span> <span class="str">:quiet</span> <span class="num">0.9</span><span class="cpar">)</span></span></span></div>
+    <div class="row"><span class="gut">24</span><span class="code"><span class="dc"><span class="sign">~ </span><span class="cpar">(</span><span class="kw">def</span> <span class="cst">SIGNAL-BOOST</span> <span class="num">2.4</span><span class="cpar">)</span></span></span></div>
+    <div class="row"><span class="gut">25</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">26</span><span class="code"><span class="mdh"># 심해 발광 — Deep Void</span></span></div>
+    <div class="row"><span class="gut">27</span><span class="code">본문은 <span class="mdemph">**이름 없이**</span> 머물고 <span class="mdemph2">*역할만*</span> 뜬다</span></div>
+    <div class="row"><span class="gut">28</span><span class="code"><span class="mdbullet">-</span> <span class="mdcode">`inline code`</span> 와 <span class="mdlink">링크</span> · <span class="mdh6">###### H6까지 램프</span></span></div>
+    <div class="pmenu">
+      <div class="ptitle">텍스트 편집</div>
+      <div class="pitem"><span class="pkind">ƒ</span><span class="plabel">photophore</span><span class="pextra">mumyeong.void</span></div>
+      <div class="pitem on"><span class="pkind">ƒ</span><span class="plabel">photons</span><span class="pextra">발광점 목록</span></div>
+      <div class="pitem"><span class="pkind">v</span><span class="plabel">visible-form</span><span class="pextra">symbol</span></div>
+    </div>
+    <div class="sline">
+      <span class="seg mode"> NORMAL </span><span class="seg sbranch"> main</span><span class="seg sfile"> void.clj</span>
+      <span class="seg sdiag"><span class="ok">✓ 12</span><span class="w">▲ 1</span><span class="e">■ 1</span>  42:9</span>
+    </div>
+  </div>
+  <div class="sw">
+    <h4>배경 · 본문</h4>
+    <span class="chip"><i style="background:var(--bg)"></i><b>bg</b><span class="oma">oma0</span></span>
+    <span class="chip"><i style="background:var(--panel)"></i><b>panel</b><span class="oma">oma1</span></span>
+    <span class="chip"><i style="background:var(--sel)"></i><b>sel</b><span class="oma">oma2</span></span>
+    <span class="chip"><i style="background:var(--cl)"></i><b>cursorline</b></span>
+    <span class="chip"><i style="background:var(--fg)"></i><b>fg</b></span>
+    <span class="chip"><i style="background:var(--cmt)"></i><b>comment</b></span>
+    <span class="chip"><i style="background:var(--fgl)"></i><b>fg_light</b><span class="oma">oma5</span></span>
+    <span class="chip"><i style="background:var(--ui)"></i><b>ui·cursor</b><span class="oma">oma8</span></span>
+    <h4>구문</h4>
+    <span class="chip"><i style="background:var(--fn)"></i><b>func</b></span>
+    <span class="chip"><i style="background:var(--str)"></i><b>string</b></span>
+    <span class="chip"><i style="background:var(--typ)"></i><b>type</b></span>
+    <span class="chip"><i style="background:var(--kw)"></i><b>keyword</b></span>
+    <span class="chip"><i style="background:var(--num)"></i><b>literal</b></span>
+    <span class="chip"><i style="background:var(--prop)"></i><b>property</b></span>
+    <span class="chip"><i style="background:var(--mac)"></i><b>macro</b></span>
+    <span class="chip"><i style="background:var(--spc)"></i><b>special</b></span>
+    <h4>진단 · 깃</h4>
+    <span class="chip"><i style="background:var(--err)"></i><b>error</b><span class="oma">oma11</span></span>
+    <span class="chip"><i style="background:var(--warn)"></i><b>warning</b></span>
+    <span class="chip"><i style="background:var(--info)"></i><b>info</b><span class="oma">oma9</span></span>
+    <span class="chip"><i style="background:var(--hint)"></i><b>hint</b></span>
+    <span class="chip"><i style="background:var(--add)"></i><b>git add</b><span class="oma">oma14</span></span>
+  </div></div>
+</section>
+
+<section class="stage" data-p="b">
+  <div class="meta">
+    <span class="name">B · Bioluminescent</span>
+    <span class="tag">이전 v3</span>
+    <span class="desc">오늘 재설계 이전의 결. 청색 틴트 배경 + 네온. 생동감은 최객체 — 데스크톱 옆에서는 가장 이질</span>
+  </div>
+  <div class="cols"><div class="editor">
+    <div class="row"><span class="gut">1</span><span class="code"><span class="cmt">;; Mumyeong — 무명: 이름 없는 본문 위에 소수 역할만 뜬다</span></span></div>
+    <div class="row"><span class="gut">2</span><span class="code"><span class="cpar">(</span><span class="kw">ns</span> <span class="typ">mumyeong.void</span></span></div>
+    <div class="row"><span class="gut">3</span><span class="code">  <span class="cpar">(</span><span class="pun">:</span><span class="kw">require</span> <span class="cpar">[</span><span class="prop">clojure.string</span> <span class="pun">:</span><span class="kw">as</span> <span class="spc">str</span><span class="cpar">]</span><span class="cpar">)</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">4</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">5</span><span class="code"><span class="cpar">(</span><span class="kw">def</span> <span class="mac">^:private</span> <span class="cst">DEEP-VOID</span> <span class="num">0.09</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">6</span><span class="code"><span class="cpar">(</span><span class="kw">def</span> <span class="cst">SIGNAL-BOOST</span> <span class="num">2.4</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">7</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">8</span><span class="code"><span class="cpar">(</span><span class="kw">defn</span> <span class="fn">photophore</span> <span class="str">"발광점을 밝힌다"</span></span></div>
+    <div class="row cl"><span class="gut">9</span><span class="code">  <span class="cpar">[</span><span class="pun">{</span><span class="prop">:keys</span> <span class="cpar">[</span><span class="par">lum</span><span class="cpar">]</span><span class="pun">}</span><span class="cpar">]</span>  <span class="cmt">; lum은 본문보다 반 계단 아래</span><span class="cursor"></span></span></div>
+    <div class="row"><span class="gut">10</span><span class="code">  <span class="cpar">(</span><span class="kw">let</span> <span class="cpar">[</span><span class="par">glow</span> <span class="cpar">(</span><span class="op">*</span> <span class="par">lum</span> <span class="cst">DEEP-VOID</span> <span class="num">2.4</span><span class="cpar">)</span><span class="cpar">]</span></span></div>
+    <div class="row"><span class="gut">11</span><span class="code">    <span class="cpar">(</span><span class="kw">if</span> <span class="cpar">(</span><span class="op">&gt;</span> <span class="par">glow</span> <span class="num">4.5</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">12</span><span class="code">      <span class="cpar">(</span><span class="fn">signal/rise</span> <span class="sel"><span class="cpar">(</span><span class="fn">signal/rise</span> <span class="str">:quiet</span></span><span class="search"> glow</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">13</span><span class="code">      <span class="cpar">(</span><span class="fn">signal/recede</span> <span class="str">:nameless</span> <span class="par">glow</span><span class="cpar">)</span><span class="cpar">)</span><span class="cpar">)</span><span class="vt e">E undefined variable recede</span></span></div>
+    <div class="row"><span class="gut">14</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">15</span><span class="code"><span class="cmt">;; ── TypeScript ──────────────────────────</span></span></div>
+    <div class="row"><span class="gut">16</span><span class="code"><span class="kw">export interface</span> <span class="typ">Photophore</span> <span class="pun">{</span></span></div>
+    <div class="row"><span class="gut">17</span><span class="code">  <span class="prop">depth</span><span class="pun">:</span> <span class="typ">number</span><span class="pun">;</span>  <span class="prop">mutable</span><span class="pun">?:</span> <span class="typ">boolean</span><span class="pun">;</span></span></div>
+    <div class="row"><span class="gut">18</span><span class="code"><span class="pun">}</span></span></div>
+    <div class="row"><span class="gut">19</span><span class="code"><span class="kw">const</span> <span class="par">boost</span> <span class="op">=</span> <span class="cst">SIGNAL-BOOST</span> <span class="op">*</span> <span class="num">2</span><span class="pun">;</span><span class="vt w">W deprecated since v3</span></span></div>
+    <div class="row"><span class="gut">20</span><span class="code"><span class="kw">return</span> <span class="pun">{</span> <span class="prop">depth</span><span class="pun">,</span> <span class="prop">mutable</span><span class="pun">:</span> <span class="cst">false</span> <span class="pun">}</span><span class="pun">;</span><span class="vt h">H 매개변수 순서 확인</span></span></div>
+    <div class="row"><span class="gut">21</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">22</span><span class="code"><span class="da"><span class="sign">+ </span><span class="cpar">(</span><span class="fn">signal/rise</span> <span class="str">:quiet</span> <span class="num">0.7</span><span class="cpar">)</span></span></span></div>
+    <div class="row"><span class="gut">23</span><span class="code"><span class="dd"><span class="sign">- </span><span class="cpar">(</span><span class="fn">signal/rise</span> <span class="str">:quiet</span> <span class="num">0.9</span><span class="cpar">)</span></span></span></div>
+    <div class="row"><span class="gut">24</span><span class="code"><span class="dc"><span class="sign">~ </span><span class="cpar">(</span><span class="kw">def</span> <span class="cst">SIGNAL-BOOST</span> <span class="num">2.4</span><span class="cpar">)</span></span></span></div>
+    <div class="row"><span class="gut">25</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">26</span><span class="code"><span class="mdh"># 심해 발광 — Deep Void</span></span></div>
+    <div class="row"><span class="gut">27</span><span class="code">본문은 <span class="mdemph">**이름 없이**</span> 머물고 <span class="mdemph2">*역할만*</span> 뜬다</span></div>
+    <div class="row"><span class="gut">28</span><span class="code"><span class="mdbullet">-</span> <span class="mdcode">`inline code`</span> 와 <span class="mdlink">링크</span> · <span class="mdh6">###### H6까지 램프</span></span></div>
+    <div class="pmenu">
+      <div class="ptitle">텍스트 편집</div>
+      <div class="pitem"><span class="pkind">ƒ</span><span class="plabel">photophore</span><span class="pextra">mumyeong.void</span></div>
+      <div class="pitem on"><span class="pkind">ƒ</span><span class="plabel">photons</span><span class="pextra">발광점 목록</span></div>
+      <div class="pitem"><span class="pkind">v</span><span class="plabel">visible-form</span><span class="pextra">symbol</span></div>
+    </div>
+    <div class="sline">
+      <span class="seg mode"> NORMAL </span><span class="seg sbranch"> main</span><span class="seg sfile"> void.clj</span>
+      <span class="seg sdiag"><span class="ok">✓ 12</span><span class="w">▲ 1</span><span class="e">■ 1</span>  42:9</span>
+    </div>
+  </div>
+  <div class="sw">
+    <h4>배경 · 본문</h4>
+    <span class="chip"><i style="background:var(--bg)"></i><b>bg</b></span>
+    <span class="chip"><i style="background:var(--panel)"></i><b>panel</b></span>
+    <span class="chip"><i style="background:var(--sel)"></i><b>sel</b></span>
+    <span class="chip"><i style="background:var(--cl)"></i><b>cursorline</b></span>
+    <span class="chip"><i style="background:var(--fg)"></i><b>fg</b></span>
+    <span class="chip"><i style="background:var(--cmt)"></i><b>comment</b></span>
+    <span class="chip"><i style="background:var(--fgl)"></i><b>fg_light</b></span>
+    <span class="chip"><i style="background:var(--ui)"></i><b>ui·cursor</b></span>
+    <h4>구문</h4>
+    <span class="chip"><i style="background:var(--fn)"></i><b>func</b></span>
+    <span class="chip"><i style="background:var(--str)"></i><b>string</b></span>
+    <span class="chip"><i style="background:var(--typ)"></i><b>type</b></span>
+    <span class="chip"><i style="background:var(--kw)"></i><b>keyword</b></span>
+    <span class="chip"><i style="background:var(--num)"></i><b>number</b></span>
+    <span class="chip"><i style="background:var(--cst)"></i><b>constant</b></span>
+    <span class="chip"><i style="background:var(--prop)"></i><b>property</b></span>
+    <span class="chip"><i style="background:var(--mac)"></i><b>macro</b></span>
+    <h4>진단 · 깃</h4>
+    <span class="chip"><i style="background:var(--err)"></i><b>error</b></span>
+    <span class="chip"><i style="background:var(--warn)"></i><b>warning</b></span>
+    <span class="chip"><i style="background:var(--info)"></i><b>info</b></span>
+    <span class="chip"><i style="background:var(--hint)"></i><b>hint</b></span>
+    <span class="chip"><i style="background:var(--add)"></i><b>git add</b></span>
+  </div></div>
+</section>
+
+<section class="stage" data-p="c">
+  <div class="meta">
+    <span class="name">C · Neon Glass</span>
+    <span class="tag rec">제안 ★</span>
+    <span class="desc">UI·배경·진단은 데스크톱 그대로(아연 + 빛), 코드 토큰만 이전 v3의 네온 채도 — "벽지 대신 코드가 주인공"</span>
+  </div>
+  <div class="cols"><div class="editor">
+    <div class="row"><span class="gut">1</span><span class="code"><span class="cmt">;; Mumyeong — 무명: 이름 없는 본문 위에 소수 역할만 뜬다</span></span></div>
+    <div class="row"><span class="gut">2</span><span class="code"><span class="cpar">(</span><span class="kw">ns</span> <span class="typ">mumyeong.void</span></span></div>
+    <div class="row"><span class="gut">3</span><span class="code">  <span class="cpar">(</span><span class="pun">:</span><span class="kw">require</span> <span class="cpar">[</span><span class="prop">clojure.string</span> <span class="pun">:</span><span class="kw">as</span> <span class="spc">str</span><span class="cpar">]</span><span class="cpar">)</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">4</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">5</span><span class="code"><span class="cpar">(</span><span class="kw">def</span> <span class="mac">^:private</span> <span class="cst">DEEP-VOID</span> <span class="num">0.09</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">6</span><span class="code"><span class="cpar">(</span><span class="kw">def</span> <span class="cst">SIGNAL-BOOST</span> <span class="num">2.4</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">7</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">8</span><span class="code"><span class="cpar">(</span><span class="kw">defn</span> <span class="fn">photophore</span> <span class="str">"발광점을 밝힌다"</span></span></div>
+    <div class="row cl"><span class="gut">9</span><span class="code">  <span class="cpar">[</span><span class="pun">{</span><span class="prop">:keys</span> <span class="cpar">[</span><span class="par">lum</span><span class="cpar">]</span><span class="pun">}</span><span class="cpar">]</span>  <span class="cmt">; lum은 본문보다 반 계단 아래</span><span class="cursor"></span></span></div>
+    <div class="row"><span class="gut">10</span><span class="code">  <span class="cpar">(</span><span class="kw">let</span> <span class="cpar">[</span><span class="par">glow</span> <span class="cpar">(</span><span class="op">*</span> <span class="par">lum</span> <span class="cst">DEEP-VOID</span> <span class="num">2.4</span><span class="cpar">)</span><span class="cpar">]</span></span></div>
+    <div class="row"><span class="gut">11</span><span class="code">    <span class="cpar">(</span><span class="kw">if</span> <span class="cpar">(</span><span class="op">&gt;</span> <span class="par">glow</span> <span class="num">4.5</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">12</span><span class="code">      <span class="cpar">(</span><span class="fn">signal/rise</span> <span class="sel"><span class="cpar">(</span><span class="fn">signal/rise</span> <span class="str">:quiet</span></span><span class="search"> glow</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">13</span><span class="code">      <span class="cpar">(</span><span class="fn">signal/recede</span> <span class="str">:nameless</span> <span class="par">glow</span><span class="cpar">)</span><span class="cpar">)</span><span class="cpar">)</span><span class="vt e">E undefined variable recede</span></span></div>
+    <div class="row"><span class="gut">14</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">15</span><span class="code"><span class="cmt">;; ── TypeScript ──────────────────────────</span></span></div>
+    <div class="row"><span class="gut">16</span><span class="code"><span class="kw">export interface</span> <span class="typ">Photophore</span> <span class="pun">{</span></span></div>
+    <div class="row"><span class="gut">17</span><span class="code">  <span class="prop">depth</span><span class="pun">:</span> <span class="typ">number</span><span class="pun">;</span>  <span class="prop">mutable</span><span class="pun">?:</span> <span class="typ">boolean</span><span class="pun">;</span></span></div>
+    <div class="row"><span class="gut">18</span><span class="code"><span class="pun">}</span></span></div>
+    <div class="row"><span class="gut">19</span><span class="code"><span class="kw">const</span> <span class="par">boost</span> <span class="op">=</span> <span class="cst">SIGNAL-BOOST</span> <span class="op">*</span> <span class="num">2</span><span class="pun">;</span><span class="vt w">W deprecated since v3</span></span></div>
+    <div class="row"><span class="gut">20</span><span class="code"><span class="kw">return</span> <span class="pun">{</span> <span class="prop">depth</span><span class="pun">,</span> <span class="prop">mutable</span><span class="pun">:</span> <span class="cst">false</span> <span class="pun">}</span><span class="pun">;</span><span class="vt h">H 매개변수 순서 확인</span></span></div>
+    <div class="row"><span class="gut">21</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">22</span><span class="code"><span class="da"><span class="sign">+ </span><span class="cpar">(</span><span class="fn">signal/rise</span> <span class="str">:quiet</span> <span class="num">0.7</span><span class="cpar">)</span></span></span></div>
+    <div class="row"><span class="gut">23</span><span class="code"><span class="dd"><span class="sign">- </span><span class="cpar">(</span><span class="fn">signal/rise</span> <span class="str">:quiet</span> <span class="num">0.9</span><span class="cpar">)</span></span></span></div>
+    <div class="row"><span class="gut">24</span><span class="code"><span class="dc"><span class="sign">~ </span><span class="cpar">(</span><span class="kw">def</span> <span class="cst">SIGNAL-BOOST</span> <span class="num">2.4</span><span class="cpar">)</span></span></span></div>
+    <div class="row"><span class="gut">25</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">26</span><span class="code"><span class="mdh"># 심해 발광 — Deep Void</span></span></div>
+    <div class="row"><span class="gut">27</span><span class="code">본문은 <span class="mdemph">**이름 없이**</span> 머물고 <span class="mdemph2">*역할만*</span> 뜬다</span></div>
+    <div class="row"><span class="gut">28</span><span class="code"><span class="mdbullet">-</span> <span class="mdcode">`inline code`</span> 와 <span class="mdlink">링크</span> · <span class="mdh6">###### H6까지 램프</span></span></div>
+    <div class="pmenu">
+      <div class="ptitle">텍스트 편집</div>
+      <div class="pitem"><span class="pkind">ƒ</span><span class="plabel">photophore</span><span class="pextra">mumyeong.void</span></div>
+      <div class="pitem on"><span class="pkind">ƒ</span><span class="plabel">photons</span><span class="pextra">발광점 목록</span></div>
+      <div class="pitem"><span class="pkind">v</span><span class="plabel">visible-form</span><span class="pextra">symbol</span></div>
+    </div>
+    <div class="sline">
+      <span class="seg mode"> NORMAL </span><span class="seg sbranch"> main</span><span class="seg sfile"> void.clj</span>
+      <span class="seg sdiag"><span class="ok">✓ 12</span><span class="w">▲ 1</span><span class="e">■ 1</span>  42:9</span>
+    </div>
+  </div>
+  <div class="sw">
+    <h4>배경 · 본문</h4>
+    <span class="chip"><i style="background:var(--bg)"></i><b>bg</b><span class="oma">oma0</span></span>
+    <span class="chip"><i style="background:var(--panel)"></i><b>panel</b><span class="oma">oma1</span></span>
+    <span class="chip"><i style="background:var(--sel)"></i><b>sel</b><span class="oma">oma2</span></span>
+    <span class="chip"><i style="background:var(--cl)"></i><b>cursorline</b></span>
+    <span class="chip"><i style="background:var(--fg)"></i><b>fg</b></span>
+    <span class="chip"><i style="background:var(--cmt)"></i><b>comment</b></span>
+    <span class="chip"><i style="background:var(--fgl)"></i><b>fg_light</b><span class="oma">oma5</span></span>
+    <span class="chip"><i style="background:var(--ui)"></i><b>ui·cursor</b><span class="oma">oma8</span></span>
+    <h4>구문</h4>
+    <span class="chip"><i style="background:var(--fn)"></i><b>func</b></span>
+    <span class="chip"><i style="background:var(--str)"></i><b>string</b></span>
+    <span class="chip"><i style="background:var(--typ)"></i><b>type</b></span>
+    <span class="chip"><i style="background:var(--kw)"></i><b>keyword</b></span>
+    <span class="chip"><i style="background:var(--num)"></i><b>number</b></span>
+    <span class="chip"><i style="background:var(--cst)"></i><b>constant</b></span>
+    <span class="chip"><i style="background:var(--prop)"></i><b>property</b></span>
+    <span class="chip"><i style="background:var(--mac)"></i><b>macro</b></span>
+    <h4>진단 · 깃</h4>
+    <span class="chip"><i style="background:var(--err)"></i><b>error</b><span class="oma">oma11</span></span>
+    <span class="chip"><i style="background:var(--warn)"></i><b>warning</b></span>
+    <span class="chip"><i style="background:var(--info)"></i><b>info</b><span class="oma">oma9</span></span>
+    <span class="chip"><i style="background:var(--hint)"></i><b>hint</b></span>
+    <span class="chip"><i style="background:var(--add)"></i><b>git add</b><span class="oma">oma14</span></span>
+  </div></div>
+</section>
+
+<section class="stage" data-p="d">
+  <div class="meta">
+    <span class="name">D · Soft Glow</span>
+    <span class="tag">절충</span>
+    <span class="desc">A의 구조에서 구문 채도만 반 단계 올린 안. C가 너무 세면 여기</span>
+  </div>
+  <div class="cols"><div class="editor">
+    <div class="row"><span class="gut">1</span><span class="code"><span class="cmt">;; Mumyeong — 무명: 이름 없는 본문 위에 소수 역할만 뜬다</span></span></div>
+    <div class="row"><span class="gut">2</span><span class="code"><span class="cpar">(</span><span class="kw">ns</span> <span class="typ">mumyeong.void</span></span></div>
+    <div class="row"><span class="gut">3</span><span class="code">  <span class="cpar">(</span><span class="pun">:</span><span class="kw">require</span> <span class="cpar">[</span><span class="prop">clojure.string</span> <span class="pun">:</span><span class="kw">as</span> <span class="spc">str</span><span class="cpar">]</span><span class="cpar">)</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">4</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">5</span><span class="code"><span class="cpar">(</span><span class="kw">def</span> <span class="mac">^:private</span> <span class="cst">DEEP-VOID</span> <span class="num">0.09</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">6</span><span class="code"><span class="cpar">(</span><span class="kw">def</span> <span class="cst">SIGNAL-BOOST</span> <span class="num">2.4</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">7</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">8</span><span class="code"><span class="cpar">(</span><span class="kw">defn</span> <span class="fn">photophore</span> <span class="str">"발광점을 밝힌다"</span></span></div>
+    <div class="row cl"><span class="gut">9</span><span class="code">  <span class="cpar">[</span><span class="pun">{</span><span class="prop">:keys</span> <span class="cpar">[</span><span class="par">lum</span><span class="cpar">]</span><span class="pun">}</span><span class="cpar">]</span>  <span class="cmt">; lum은 본문보다 반 계단 아래</span><span class="cursor"></span></span></div>
+    <div class="row"><span class="gut">10</span><span class="code">  <span class="cpar">(</span><span class="kw">let</span> <span class="cpar">[</span><span class="par">glow</span> <span class="cpar">(</span><span class="op">*</span> <span class="par">lum</span> <span class="cst">DEEP-VOID</span> <span class="num">2.4</span><span class="cpar">)</span><span class="cpar">]</span></span></div>
+    <div class="row"><span class="gut">11</span><span class="code">    <span class="cpar">(</span><span class="kw">if</span> <span class="cpar">(</span><span class="op">&gt;</span> <span class="par">glow</span> <span class="num">4.5</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">12</span><span class="code">      <span class="cpar">(</span><span class="fn">signal/rise</span> <span class="sel"><span class="cpar">(</span><span class="fn">signal/rise</span> <span class="str">:quiet</span></span><span class="search"> glow</span><span class="cpar">)</span></span></div>
+    <div class="row"><span class="gut">13</span><span class="code">      <span class="cpar">(</span><span class="fn">signal/recede</span> <span class="str">:nameless</span> <span class="par">glow</span><span class="cpar">)</span><span class="cpar">)</span><span class="cpar">)</span><span class="vt e">E undefined variable recede</span></span></div>
+    <div class="row"><span class="gut">14</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">15</span><span class="code"><span class="cmt">;; ── TypeScript ──────────────────────────</span></span></div>
+    <div class="row"><span class="gut">16</span><span class="code"><span class="kw">export interface</span> <span class="typ">Photophore</span> <span class="pun">{</span></span></div>
+    <div class="row"><span class="gut">17</span><span class="code">  <span class="prop">depth</span><span class="pun">:</span> <span class="typ">number</span><span class="pun">;</span>  <span class="prop">mutable</span><span class="pun">?:</span> <span class="typ">boolean</span><span class="pun">;</span></span></div>
+    <div class="row"><span class="gut">18</span><span class="code"><span class="pun">}</span></span></div>
+    <div class="row"><span class="gut">19</span><span class="code"><span class="kw">const</span> <span class="par">boost</span> <span class="op">=</span> <span class="cst">SIGNAL-BOOST</span> <span class="op">*</span> <span class="num">2</span><span class="pun">;</span><span class="vt w">W deprecated since v3</span></span></div>
+    <div class="row"><span class="gut">20</span><span class="code"><span class="kw">return</span> <span class="pun">{</span> <span class="prop">depth</span><span class="pun">,</span> <span class="prop">mutable</span><span class="pun">:</span> <span class="cst">false</span> <span class="pun">}</span><span class="pun">;</span><span class="vt h">H 매개변수 순서 확인</span></span></div>
+    <div class="row"><span class="gut">21</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">22</span><span class="code"><span class="da"><span class="sign">+ </span><span class="cpar">(</span><span class="fn">signal/rise</span> <span class="str">:quiet</span> <span class="num">0.7</span><span class="cpar">)</span></span></span></div>
+    <div class="row"><span class="gut">23</span><span class="code"><span class="dd"><span class="sign">- </span><span class="cpar">(</span><span class="fn">signal/rise</span> <span class="str">:quiet</span> <span class="num">0.9</span><span class="cpar">)</span></span></span></div>
+    <div class="row"><span class="gut">24</span><span class="code"><span class="dc"><span class="sign">~ </span><span class="cpar">(</span><span class="kw">def</span> <span class="cst">SIGNAL-BOOST</span> <span class="num">2.4</span><span class="cpar">)</span></span></span></div>
+    <div class="row"><span class="gut">25</span><span class="code"> </span></div>
+    <div class="row"><span class="gut">26</span><span class="code"><span class="mdh"># 심해 발광 — Deep Void</span></span></div>
+    <div class="row"><span class="gut">27</span><span class="code">본문은 <span class="mdemph">**이름 없이**</span> 머물고 <span class="mdemph2">*역할만*</span> 뜬다</span></div>
+    <div class="row"><span class="gut">28</span><span class="code"><span class="mdbullet">-</span> <span class="mdcode">`inline code`</span> 와 <span class="mdlink">링크</span> · <span class="mdh6">###### H6까지 램프</span></span></div>
+    <div class="pmenu">
+      <div class="ptitle">텍스트 편집</div>
+      <div class="pitem"><span class="pkind">ƒ</span><span class="plabel">photophore</span><span class="pextra">mumyeong.void</span></div>
+      <div class="pitem on"><span class="pkind">ƒ</span><span class="plabel">photons</span><span class="pextra">발광점 목록</span></div>
+      <div class="pitem"><span class="pkind">v</span><span class="plabel">visible-form</span><span class="pextra">symbol</span></div>
+    </div>
+    <div class="sline">
+      <span class="seg mode"> NORMAL </span><span class="seg sbranch"> main</span><span class="seg sfile"> void.clj</span>
+      <span class="seg sdiag"><span class="ok">✓ 12</span><span class="w">▲ 1</span><span class="e">■ 1</span>  42:9</span>
+    </div>
+  </div>
+  <div class="sw">
+    <h4>배경 · 본문</h4>
+    <span class="chip"><i style="background:var(--bg)"></i><b>bg</b><span class="oma">oma0</span></span>
+    <span class="chip"><i style="background:var(--panel)"></i><b>panel</b><span class="oma">oma1</span></span>
+    <span class="chip"><i style="background:var(--sel)"></i><b>sel</b><span class="oma">oma2</span></span>
+    <span class="chip"><i style="background:var(--cl)"></i><b>cursorline</b></span>
+    <span class="chip"><i style="background:var(--fg)"></i><b>fg</b></span>
+    <span class="chip"><i style="background:var(--cmt)"></i><b>comment</b></span>
+    <span class="chip"><i style="background:var(--fgl)"></i><b>fg_light</b><span class="oma">oma5</span></span>
+    <span class="chip"><i style="background:var(--ui)"></i><b>ui·cursor</b><span class="oma">oma8</span></span>
+    <h4>구문</h4>
+    <span class="chip"><i style="background:var(--fn)"></i><b>func</b></span>
+    <span class="chip"><i style="background:var(--str)"></i><b>string</b></span>
+    <span class="chip"><i style="background:var(--typ)"></i><b>type</b></span>
+    <span class="chip"><i style="background:var(--kw)"></i><b>keyword</b></span>
+    <span class="chip"><i style="background:var(--num)"></i><b>literal</b></span>
+    <span class="chip"><i style="background:var(--prop)"></i><b>property</b></span>
+    <span class="chip"><i style="background:var(--mac)"></i><b>macro</b></span>
+    <span class="chip"><i style="background:var(--spc)"></i><b>special</b></span>
+    <h4>진단 · 깃</h4>
+    <span class="chip"><i style="background:var(--err)"></i><b>error</b><span class="oma">oma11</span></span>
+    <span class="chip"><i style="background:var(--warn)"></i><b>warning</b></span>
+    <span class="chip"><i style="background:var(--info)"></i><b>info</b><span class="oma">oma9</span></span>
+    <span class="chip"><i style="background:var(--hint)"></i><b>hint</b></span>
+    <span class="chip"><i style="background:var(--add)"></i><b>git add</b><span class="oma">oma14</span></span>
+  </div></div>
+</section>
+</main>
+
+<script>
+  const btns = document.querySelectorAll('.pbtn');
+  function show(p) {
+    document.querySelectorAll('.stage').forEach(s => {
+      s.style.display = (p === 'all' || s.dataset.p === p) ? '' : 'none';
+    });
+    btns.forEach(b => b.classList.toggle('on', b.dataset.p === p));
+  }
+  btns.forEach(b => b.addEventListener('click', () => show(b.dataset.p)));
+  show('all');
+</script>
+</body>
+</html>
