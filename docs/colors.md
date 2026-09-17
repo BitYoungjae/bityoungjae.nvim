@@ -20,7 +20,8 @@ Mumyeong (무명)은 omarchy-mumyeong-theme("**Neutral Void, 무채색의 공허
 | **bg_light**   | `#18181B` | oma1    | 사이드바 (ghostty 배경과 동일)          |
 | **bg_dark**    | `#18181B` | oma1    | 팝업, 플로트, 상태줄                    |
 | **cursor_line**| `#202024` | -       | 커서 라인 (배경 대비 ~1.23:1)           |
-| **selection**  | `#27272A` | oma2    | Visual (데스크톱 선택색과 동일)         |
+| **selection**  | `#27272A` | oma2    | UI 표면 선택 (팝업·픽커·lualine — 데스크톱과 동일) |
+| **visual**     | `#283457` | -       | 편집기 Visual (블루 틴트 — bg_search와 같은 틴트 언어, 배경 대비 1.6:1) |
 | **border**     | `#4E4E57` | -       | 창 경계·유리 단면                       |
 | **line_nr**    | `#62626C` | -       | 비활성 줄 번호 (≥ 3.2:1)                |
 | **line_nr_cur**| `#E4E4E7` | oma5    | 활성 줄 번호 (`#FFFFFF` 아님)           |
@@ -82,6 +83,7 @@ H1–H6는 같은 하늘 hue에서 밝기만 내려갑니다.
 - **Hint** `#74828F`: 슬레이트 한 계단 아래 (플로트 배경에서도 ≥ 4.5).
 - **Git**: Add `#81C784`(oma14) · Change = func · Delete = error.
 - **검색**: `#2E3A4A` 슬레이트 틴트 / 증분 검색 `#2D3B33` 에메랄드 틴트. 반전하지 않습니다.
+- **flash**: 점프 라벨은 type 브라스(`#F0D48A`) 칩에 본문색 bold — 이동 코드가 에메랄드 매치 위에서 확실히 읽히게. 빨강 격리 원칙은 그대로 유지.
 - **snacks picker**: ignored·hidden 항목은 snacks 기본값(NonText 링크) 대신 주석 톤(`#9BA3AF`, 패널 위 6.4:1)으로 — 무시됨 위계는 유지하되 읽힙니다.
 - **blink.cmp 고스트 텍스트**: `#585862` (확정 입력이 아님을 밝기로 표현). nvim 기본 `ComplHint`도 같은 톤으로 재정의 — 런타임 기본 링크(→NonText)가 극도 디밍을 상속하지 않게.
 
