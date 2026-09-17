@@ -20,8 +20,8 @@ function M.setup(hl, p)
   hl(0, "LineNrAbove", { fg = p.line_nr })
   hl(0, "LineNrBelow", { fg = p.line_nr })
 
-  hl(0, "Visual", { bg = p.selection })
-  hl(0, "VisualNOS", { bg = p.selection })
+  hl(0, "Visual", { bg = p.visual })
+  hl(0, "VisualNOS", { bg = p.visual })
 
   hl(0, "Search", { fg = p.fg_light, bg = p.bg_search })
   hl(0, "IncSearch", { fg = p.fg_light, bg = p.bg_search_inc })

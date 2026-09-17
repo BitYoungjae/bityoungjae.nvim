@@ -13,14 +13,15 @@ local M = {}
 
 -- =============================================================================
 -- 모노톤 사다리 (휘도 순) — 데스크톱 carbon layer와 1:1
--- bg → bg_light/bg_dark → cursor_line → selection
+-- bg → bg_light/bg_dark → cursor_line → selection → visual
 -- → line_nr → punctuation → operator → comment → parameter → fg → fg_light
 -- =============================================================================
 M.bg = "#09090B"          -- oma0 Void - 메인 편집 영역
 M.bg_light = "#18181B"    -- oma1 Onyx - 사이드바 (ghostty 배경과 동일)
 M.bg_dark = "#18181B"     -- oma1 Onyx - 팝업, 플로트, 상태줄
 M.cursor_line = "#202024" -- 커서 라인 (배경 대비 ~1.23:1)
-M.selection = "#27272A"   -- oma2 Charcoal - Visual (데스크톱 선택색과 동일)
+M.selection = "#27272A"   -- oma2 Charcoal - UI 표면 (팝업·픽커·lualine, 데스크톱 선택색과 동일)
+M.visual = "#283457"      -- Visual - 블루 틴트 (bg_search와 같은 '틴트' 언어, 중립 한계 1.6:1을 hue로 돌파)
 M.border = "#4E4E57"      -- 창 경계·유리 단면 (데스크톱 경계 철학을 따라 판독 가능하게)
 M.line_nr = "#62626C"     -- 비활성 줄 번호
 M.line_nr_cur = "#E4E4E7" -- oma5 Platinum - 활성 줄 번호 (#FFFFFF 아님)
