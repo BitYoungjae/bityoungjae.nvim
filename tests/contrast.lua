@@ -29,6 +29,9 @@ check("LineNr ≥ 3.2", util.contrast(p.line_nr, p.bg) >= 3.2, ratio(p.line_nr, 
 check("CursorLine visible", util.contrast(p.cursor_line, p.bg) >= 1.20, ratio(p.cursor_line, p.bg))
 check("Visual visible", util.contrast(p.visual, p.bg) >= 1.5, ratio(p.visual, p.bg))
 check("Visual/cursorline ≥ 1.25", util.contrast(p.visual, p.cursor_line) >= 1.25, ratio(p.visual, p.cursor_line))
+check("Comment/float ≥ 4.5", util.contrast(p.comment, p.float) >= 4.5, ratio(p.comment, p.float))
+check("Float visible", util.contrast(p.float, p.bg) >= 1.25, ratio(p.float, p.bg))
+check("FloatBorder 단면 ≥ 2.0", util.contrast(p.float_border, p.float) >= 2.0, ratio(p.float_border, p.float))
 check("Search ≥ 4.5", util.contrast(p.fg_light, p.bg_search) >= 4.5, ratio(p.fg_light, p.bg_search))
 check("error ≠ constant", p.error ~= p.constant, p.error .. " " .. p.constant)
 check("error ≠ accent1", p.error ~= p.accent1, p.error .. " " .. p.accent1)
@@ -92,6 +95,12 @@ check("Search uses bg_search", hex(search.bg) == p.bg_search:upper())
 
 local visual = hl("Visual")
 check("Visual uses visual", hex(visual.bg) == p.visual:upper())
+
+local normal_float = hl("NormalFloat")
+check("NormalFloat uses float", hex(normal_float.bg) == p.float:upper())
+
+local picker_list = hl("SnacksPickerList")
+check("SnacksPickerList uses float", hex(picker_list.bg) == p.float:upper())
 
 local flash_label = hl("FlashLabel")
 check("FlashLabel brass chip", hex(flash_label.bg) == p.type:upper())
