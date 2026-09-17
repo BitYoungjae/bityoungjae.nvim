@@ -4,9 +4,9 @@ local M = {}
 function M.setup(hl, p)
   hl(0, "Normal", { fg = p.fg, bg = p.bg })
   hl(0, "NormalNC", { fg = p.fg, bg = p.bg })
-  hl(0, "NormalFloat", { fg = p.fg, bg = p.bg_dark })
-  hl(0, "FloatBorder", { fg = p.border, bg = p.bg_dark })
-  hl(0, "FloatTitle", { fg = p.ui_accent, bg = p.bg_dark, bold = true })
+  hl(0, "NormalFloat", { fg = p.fg, bg = p.float })
+  hl(0, "FloatBorder", { fg = p.float_border, bg = p.float })
+  hl(0, "FloatTitle", { fg = p.ui_accent, bg = p.float, bold = true })
 
   hl(0, "Cursor", { fg = p.bg, bg = p.cursor })
   hl(0, "CursorIM", { fg = p.bg, bg = p.cursor })

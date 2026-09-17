@@ -13,7 +13,7 @@ local M = {}
 
 -- =============================================================================
 -- 모노톤 사다리 (휘도 순) — 데스크톱 carbon layer와 1:1
--- bg → bg_light/bg_dark → cursor_line → selection → visual
+-- bg → bg_light/bg_dark → cursor_line → float → selection → visual
 -- → line_nr → punctuation → operator → comment → parameter → fg → fg_light
 -- =============================================================================
 M.bg = "#09090B"          -- oma0 Void - 메인 편집 영역
@@ -23,6 +23,8 @@ M.cursor_line = "#202024" -- 커서 라인 (배경 대비 ~1.23:1)
 M.selection = "#27272A"   -- oma2 Charcoal - UI 표면 (팝업·픽커·lualine, 데스크톱 선택색과 동일)
 M.visual = "#283457"      -- Visual - 블루 틴트 (bg_search와 같은 '틴트' 언어, 중립 한계 1.6:1을 hue로 돌파)
 M.border = "#4E4E57"      -- 창 경계·유리 단면 (데스크톱 경계 철학을 따라 판독 가능하게)
+M.float = "#2B2B32"       -- 플로트 표면 (투명 모드의 온릭스 #18181B 위에서도, Void #09090B 위에서도 1.25:1 이상)
+M.float_border = "#62626C" -- 플로트 단면 (표면 대비 2.4:1의 라인 — 테두리로 카드 윤곽을 만든다)
 M.line_nr = "#62626C"     -- 비활성 줄 번호
 M.line_nr_cur = "#E4E4E7" -- oma5 Platinum - 활성 줄 번호 (#FFFFFF 아님)
 M.whitespace = "#303039"  -- 리스트 문자 (줄 번호보다 한 계단 어둡게)

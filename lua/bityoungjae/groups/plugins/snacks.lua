@@ -52,6 +52,15 @@ function M.setup(hl, p)
   hl(0, "SnacksInputBorder", { fg = p.border })
   hl(0, "SnacksInputTitle", { fg = p.ui_accent })
 
+  -- 픽커 창들은 winhighlight로 SnacksPicker* 그룹을 직접 가리킨다. 이 그룹들은
+  -- transparency.lua의 제거 목록에 없으므로, 투명 모드에서도 픽커만 불투명 카드로 유지된다.
+  local surface = { fg = p.fg, bg = p.float }
+  hl(0, "SnacksPickerBox", surface)
+  hl(0, "SnacksPickerList", surface)
+  hl(0, "SnacksPickerInput", surface)
+  hl(0, "SnacksPickerPreview", surface)
+  hl(0, "SnacksNormal", surface)
+
   hl(0, "SnacksPickerInputBorder", { fg = p.func, bg = p.bg_dark })
   hl(0, "SnacksPickerInputTitle", { fg = p.func, bg = p.bg_dark })
   hl(0, "SnacksPickerBoxTitle", { fg = p.func, bg = p.bg_dark })
