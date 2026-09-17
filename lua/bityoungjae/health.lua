@@ -35,7 +35,7 @@ function M.check()
     body >= 7 and body <= 11.5,
     ratio(p.fg, p.bg) .. " (할로네이션 밴드)"
   )
-  for _, surface in ipairs({ "bg", "cursor_line", "selection", "visual" }) do
+  for _, surface in ipairs({ "bg", "cursor_line", "selection", "visual", "float" }) do
     local r = util.contrast(p.comment, p[surface])
     report(("주석/%s ≥ 4.5"):format(surface), r >= 4.5, ratio(p.comment, p[surface]))
   end
